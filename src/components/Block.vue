@@ -1,19 +1,22 @@
 <template>
-  <div class="block" :class="classNames">
+  <div class="block" :class="classNames" @click="onClick">
     <slot></slot>
     <template v-for="params in contentBlocks">
       <component
         v-if="params"
-        v-bind="params">{{ params.html }}
+        v-bind="params"
+        v-bind:key="params.id"
+        v-bind:is="params.is"
+        >{{ params.html }}
       </component>
     </template>
   </div>
 </template>
 
 <script>
-  import Label from './Label'
-  import Text from './Text'
-  import Icon from './Icon'
+//  import Label from './Label'
+//  import Text from './Text'
+//  import Icon from './Icon'
 
   export default {
     name: 'Block',
@@ -23,6 +26,11 @@
       content: {type: Array, default: () => ([])}
     },
     components: {},
+    methods: {
+      onClick(e) {
+        this.$emit('click', e)
+      }
+    },
     computed: {
       classNames() {
         return {

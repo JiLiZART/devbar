@@ -1,30 +1,23 @@
 <template>
-  <div class="toolbar" :class="className">
-    <div class="bar bar_active">
-      <div class="toggler">
-        <dt-icon name="toggler"></dt-icon>
-      </div>
-      <dt-block :titled="true" :size="size">
-        <Logo></Logo>
-      </dt-block>
-      <tabs :tabs="tabs" :size="size"></tabs>
-      <divider></divider>
-      <dt-block>
-        <dt-icon name="more-vert" size="s"></dt-icon>
-      </dt-block>
+  <div class="bar bar_active">
+    <div class="toggler">
+      <Icon name="toggler"></Icon>
     </div>
+    <Block :titled="true" :size="size">
+      <Logo></Logo>
+    </Block>
+    <tabs :tabs="tabs" :size="size" @tabClick="onTabClick"></tabs>
+    <divider></divider>
+    <Block>
+      <Icon name="close" size="s"></Icon>
+    </Block>
+    <Block>
+      <Icon name="more-vert" size="s"></Icon>
+    </Block>
   </div>
 </template>
 
 <style scoped>
-  .toolbar {
-    text-align: left;
-    transition: width .3s ease;
-    z-index: 1000000;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
   .bar {
     position: relative;
     display: flex;
@@ -50,35 +43,6 @@
     height: 100%;
     background: #111;
   }
-
-  .active {
-    width: 100%;
-  }
-
-  .sticky {
-    position: fixed;
-    margin: 0;
-  }
-
-  .sticky_bottom-right {
-    right: 0;
-    bottom: 0;
-  }
-
-  .sticky_bottom-left {
-    left: 0;
-    bottom: 0;
-  }
-
-  .sticky_top-left {
-    left: 0;
-    top: 0;
-  }
-
-  .sticky_top-right {
-    left: 0;
-    top: 0;
-  }
 </style>
 
 <script>
@@ -93,7 +57,7 @@
 
   export default {
     name: 'Toolbar',
-    props: {state: {type: Object}},
+    props: {size: String},
     components: {
       Block,
       Logo,
@@ -102,30 +66,17 @@
       Tabs
     },
 
+    methods: {
+      onTabClick(e) {
+        console.log('toolbar tab click');
+        this.$emit('tabClick', e)
+      }
+    },
+
     computed: {
-      className() {
-        return {
-          active: true,
-          sticky: this.sticky,
-          [`sticky_${this.placement}`]: Boolean(this.placement)
-        }
-      },
-
-      sticky() {
-        return true
-      },
-
-      size() {
-        return this.state.size ? this.state.size : 'm'
-      },
-
-      placement() {
-        return this.state.placement ? this.state.placement : 'bottom-right'
-      },
-
       tabs() {
-        if (this.state.tabs) {
-          return this.state.tabs.map((block) => {
+        if (this.$store.state.tabs) {
+          return this.$store.state.tabs.map((block) => {
             if (block.template) {
               const blockId = `block-${nanoid(url)}`
 

@@ -1,1 +1,5 @@
-export default {}
+export default {
+  test(state) {
+    return state
+  }
+}

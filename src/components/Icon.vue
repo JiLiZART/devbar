@@ -11,7 +11,9 @@
   import Timer from 'material-design-icons/image/svg/production/ic_timer_24px.svg'
   import MoreVert from 'material-design-icons/navigation/svg/production/ic_more_vert_24px.svg'
 
-  console.log('ssSettings', Settings);
+  import Toggler from 'material-design-icons/navigation/svg/production/ic_more_vert_24px.svg'
+
+  console.log('ssSettings', Settings)
 
   export default {
     name: 'Icon',
@@ -24,7 +26,8 @@
       DataUsage,
       Memory,
       Timer,
-      MoreVert
+      MoreVert,
+      Toggler
     },
     computed: {
       classObject() {

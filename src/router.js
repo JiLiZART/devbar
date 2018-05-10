@@ -9,7 +9,7 @@ export function createRouter() {
   return new Router({
     routes: [
       {
-        path: '/welcome',
+        path: '/',
         name: 'welcome',
         component: WelcomeView
       }

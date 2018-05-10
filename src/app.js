@@ -16,7 +16,7 @@ export function createApp() {
 
   // sync the router with the vuex store.
   // this registers `store.state.route`
-  sync(store, router)
+  // sync(store, router)
 
   createComponents()
 

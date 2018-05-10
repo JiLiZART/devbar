@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>yii2-devtools-js</title>
+  <script type="text/javascript">
+    __YII2_DEVTOOLS__ = {
+      placement: 'bottom-right',
+      tabs: [
+        {
+          title: 'Ajax',
+          content: [
+            {text: 'Ajax'},
+            {label: '1', type: 'success'}
+          ]
+        },
+        {
+          title: 'Version',
+          content: [
+            {label: '2.0.15-dev'},
+            {text: 'PHP'},
+            {label: '7.1.13'}
+          ]
+        },
+        {
+          title: 'HTTP',
+          content: [
+            {text: 'Status'},
+            {label: '200', type: 'success'},
+          ]
+        },
+        {
+          title: 'Router',
+          content: [
+            {text: 'Route'},
+            {label: 'site/index'}
+          ]
+        },
+        {
+          title: 'Log',
+          content: [
+            {text: 'Log'},
+            {label: '12'},
+          ]
+        },
+        {
+          title: 'Performance',
+          content: [
+            {icon: 'timer'},
+            {label: '13 ms', type: 'info'},
+            {icon: 'memory'},
+            {label: '1.612 MB', type: 'info'},
+          ]
+        },
+        {
+          title: 'Events',
+          content: [
+            {text: 'Events'},
+            {label: '12'},
+          ]
+        },
+        {
+          title: 'Assets',
+          content: [
+            {text: 'Asset bundles'},
+            {label: '5', type: 'info'},
+          ]
+        },
+        {
+          title: 'User',
+          content: [
+            {text: 'User'},
+            {label: '100', type: 'info'},
+          ]
+        },
+        {
+          template: '#mySuperInfoTemplate',
+          data: function () {
+            return {
+              superTest: '123',
+            }
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+<div id="yii2-devtools"></div>
+<!-- built files will be auto injected -->
+
+<template type="text/x-template" id="mySuperInfoTemplate">
+  <dt-block>
+    Supert Block
+    <dt-label>Test Label info</dt-label>
+  </dt-block>
+</template>
+</body>
+</html>

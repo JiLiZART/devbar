@@ -1,68 +1,88 @@
 <template>
-  <div class="block" :class="classNames" @click="onClick">
-    <slot></slot>
-    <template v-for="params in contentBlocks">
-      <component
-        v-if="params"
-        v-bind="params"
-        v-bind:key="params.id"
-        v-bind:is="params.is"
+  <div class="block" :class="classNames">
+    <div class="block__link" @click="onClick">
+      <slot></slot>
+      <template v-for="params in contentBlocks">
+        <component
+          v-if="params"
+          v-bind="params"
+          v-bind:key="params.id"
+          v-bind:is="params.is"
         >{{ params.html }}
-      </component>
-    </template>
+        </component>
+      </template>
+    </div>
+    <div class="block__info">
+      <div class="block__info-row">
+        <dt-text>Total time</dt-text>
+        <Label type="dark">184 ms</Label>
+      </div>
+      <div class="block__info-row">
+        <dt-text>Initialization time</dt-text>
+        <Label type="dark">68 ms</Label>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-//  import Label from './Label'
-//  import Text from './Text'
-//  import Icon from './Icon'
+  import Icon from './Icon'
+  import Text from './Text'
+  import Label from './Label'
 
   export default {
     name: 'Block',
     props: {
-      titled: {type: Boolean},
-      size: {type: String},
-      content: {type: Array, default: () => ([])}
+      titled: Boolean,
+      size: String,
+      url: {type: String, default: ''},
+      content: {type: Array, default: () => ([])},
+      stretch: Boolean
     },
-    components: {},
+    components: {Icon, Text, Label},
     methods: {
       onClick(e) {
         this.$emit('click', e)
+      },
+      toLabel(item) {
+        return {
+          is: 'dt-label', // Label,
+          type: item.type,
+          html: item.label
+        }
+      },
+      toIcon(item) {
+        return {
+          is: 'dt-icon', // Icon,
+          name: item.icon
+        }
+      },
+      toText(item) {
+        return {
+          is: 'dt-text', // Text,
+          html: item.text
+        }
       }
     },
     computed: {
       classNames() {
         return {
           titled: this.titled,
+          block_active: this.active,
+          block_link: true,
+          block_stretch: Boolean(this.stretch),
           [`size_${this.size}`]: Boolean(this.size)
         }
       },
 
       contentBlocks() {
-        return this.content.map((item) => {
-          if (item.text) {
-            return {
-              is: 'dt-text', // Text,
-              html: item.text
-            }
-          }
-
-          if (item.label) {
-            return {
-              is: 'dt-label', // Label,
-              type: item.type,
-              html: item.label
-            }
-          }
-
-          if (item.icon) {
-            return {
-              is: 'dt-icon', // Icon,
-              name: item.icon
-            }
-          }
-        })
+        return this.content.map((item) => (
+          ({
+            [!!item.text]: this.toText,
+            [!!item.label]: this.toLabel,
+            [!!item.icon]: this.toIcon
+          })[!!1](item)
+        ))
       }
     }
   }
@@ -71,6 +91,28 @@
 <style scoped>
   .block {
     margin: 0;
+  }
+
+  .block:hover {
+    position: relative;
+  }
+
+  .block + .block {
+    border-right: 1px solid rgba(0, 0, 0, 0.11);
+  }
+
+  .block.block_stretch {
+    padding: 2px 0;
+  }
+
+  .block.block_active {
+    background: rgb(247, 247, 247); /* Old browsers */
+    background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  }
+
+  .block__link {
+    cursor: pointer;
+    height: 100%;
     padding: 2px 6px;
     font: 10px Verdana, Arial, sans-serif;
     box-sizing: border-box;
@@ -79,13 +121,33 @@
     align-items: center;
   }
 
-  .block + .block {
-    border-right: 1px solid rgba(0, 0, 0, 0.11);
+  .block__info {
+    bottom: 36px;
+    display: block;
+    visibility: hidden;
+    padding: 10px 0;
+    position: absolute;
+    border: 1px solid rgba(0, 0, 0, 0.11);
+    background: rgb(247, 247, 247);
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
   }
 
-  .block_active {
-    background: rgb(247, 247, 247); /* Old browsers */
-    background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  .block:hover .block__info {
+    padding: 10px;
+    max-width: 480px;
+    max-height: 480px;
+    word-wrap: break-word;
+    overflow: hidden;
+    overflow-y: auto;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .block__info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
   }
 
   .block a {
@@ -98,23 +160,23 @@
     vertical-align: middle;
   }
 
-  .size_xl {
+  .block.size_xl {
     height: 48px;
   }
 
-  .size_l {
+  .block.size_l {
     height: 40px;
   }
 
-  .size_m {
+  .block.size_m {
     height: 32px;
   }
 
-  .size_s {
+  .block.size_s {
     height: 24px;
   }
 
-  .titled {
+  .block.titled {
     background: rgb(247, 247, 247); /* Old browsers */
     background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   }

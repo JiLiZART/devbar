@@ -1,7 +1,5 @@
 <template>
-    <span class="icon" :class="classObject">
-      <component :is="name" viewBox="0 0 16 16" width="16" height="16"></component>
-    </span>
+  <component :is="name" class="icon" :class="classObject" :width="sizeValue" :height="sizeValue"></component>
 </template>
 
 <script>
@@ -11,15 +9,16 @@
   import Timer from 'material-design-icons/image/svg/production/ic_timer_24px.svg'
   import MoreVert from 'material-design-icons/navigation/svg/production/ic_more_vert_24px.svg'
 
-  import Toggler from 'material-design-icons/navigation/svg/production/ic_more_vert_24px.svg'
-
-  console.log('ssSettings', Settings)
+  import Fullscreen from 'material-design-icons/navigation/svg/production/ic_fullscreen_24px.svg'
+  import FullscreenExit from 'material-design-icons/navigation/svg/production/ic_fullscreen_exit_24px.svg'
+  import Clear from 'material-design-icons/content/svg/production/ic_clear_24px.svg'
+  import ArrowRight from 'material-design-icons/hardware/svg/production/ic_keyboard_arrow_right_24px.svg'
 
   export default {
     name: 'Icon',
     props: {
       name: String,
-      size: String
+      size: {type: String, default: 'm'}
     },
     components: {
       Settings,
@@ -27,12 +26,26 @@
       Memory,
       Timer,
       MoreVert,
-      Toggler
+      Fullscreen,
+      FullscreenExit,
+      Clear,
+      ArrowRight
     },
     computed: {
       classObject() {
         return {
           [`size_${this.size}`]: this.size
+        }
+      },
+      sizeValue() {
+        return this.sizeMap[this.size]
+      },
+      sizeMap() {
+        return {
+          xl: 40,
+          l: 32,
+          m: 24,
+          s: 16
         }
       }
     }
@@ -43,6 +56,9 @@
   .icon {
     color: #444;
     fill: #444;
+    /*vertical-align: middle;*/
+    /*display: inline-block;*/
+    background: no-repeat 50%;
   }
 
   .size_xl {

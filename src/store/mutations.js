@@ -1,5 +1,11 @@
+import Vue from 'vue'
+
 export default {
-  viewActive(state, val) {
-    state.view_active = val
+  viewState(state, val) {
+    console.log('view state', state, val);
+    Vue.set(state, 'viewState', val)
+  },
+  barActive(state, val) {
+    Vue.set(state, 'barActive', val)
   }
 }

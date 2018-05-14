@@ -11,8 +11,9 @@ export function createStore() {
     strict: process.env.NODE_ENV !== 'production',
     state: {
       tabs: [],
+      barActive: false,
       placement: 'bottom-right',
-      view_active: false
+      viewState: 'active'
     },
     actions,
     mutations,

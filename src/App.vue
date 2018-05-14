@@ -1,9 +1,20 @@
 <template>
-  <div class="app"
+  <div class="devtools"
        :class="className">
     <Toolbar
       class="toolbar"
-      :size="size" @tabClick="onTabClick"></Toolbar>
+      :size="size"
+      :tabs="tabs"
+      :viewState="viewState"
+      :barActive="barActive"
+      :closeVisible="viewStateActive"
+      :fullExitVisible="viewStateFull"
+      @tabClick="onTabClick"
+      @closeClick="onCloseClick"
+      @fullClick="onFullClick"
+      @fullExitClick="onFullExitClick"
+      @togglerClick="onTogglerClick"
+    ></Toolbar>
     <div class="view">
       <router-view></router-view>
     </div>
@@ -11,7 +22,11 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import Toolbar from './Toolbar.vue'
+
+  const VIEW_STATE_ACTIVE = 'active'
+  const VIEW_STATE_FULL = 'fullscreen'
 
   export default {
     name: 'App',
@@ -19,38 +34,63 @@
 
     methods: {
       onTabClick() {
-        this.$store.commit('viewActive', !this.$store.state.view_active)
-      }
+        this.$store.commit('viewState', VIEW_STATE_ACTIVE)
+      },
+      onCloseClick() {
+        this.$store.commit('viewState', '')
+      },
+      onFullClick() {
+        this.$store.commit('viewState', VIEW_STATE_FULL)
+      },
+      onFullExitClick() {
+        this.$store.commit('viewState', VIEW_STATE_ACTIVE)
+      },
+      onTogglerClick() {
+        this.$store.commit('barActive', !this.barActive)
+      },
     },
 
     computed: {
       className() {
-        console.log('this.$store.state.view_active', this.$store.state);
+        console.log('this.$store.state.view_active', this.$store.state)
         return {
-          active: true,
+          active: this.barActive,
           sticky: this.sticky,
+          [`size_${this.size}`]: Boolean(this.size),
           [`sticky_${this.placement}`]: Boolean(this.placement),
-          view_active: this.$store.state.view_active
+          [`view_${this.viewState}`]: Boolean(this.viewState)
         }
       },
 
-      sticky() {
-        return true
-      },
-
-      size() {
-        return this.$store.state.size ? this.$store.state.size : 'm'
-      },
-
-      placement() {
-        return this.$store.state.placement ? this.$store.state.placement : 'bottom-right'
-      },
+      ...mapState({
+        barActive: state => state.barActive,
+        tabs: state => state.tabs,
+        viewState: state => state.viewState,
+        viewStateActive: state => state.viewState === VIEW_STATE_ACTIVE,
+        viewStateFull: state => state.viewState === VIEW_STATE_FULL,
+        placement: state => (state.placement ? state.placement : 'bottom-right'),
+        size: state => (state.size ? state.size : 'm'),
+        sticky: state => true,
+      })
     }
   }
 </script>
 
 <style scoped>
-  .app {
+  .devtools {
+    /*width: 96px;*/
+    /*width: auto;*/
+    /*transition: width .3s ease;*/
+    /*overflow: hidden;*/
+    /*max-width: 0;*/
+    /*transition: max-width 0.3s ease-out;*/
+    transition: transform 0.1s ease-out;
+    transform: translateX(100%);
+  }
+
+  .devtools.active {
+    width: 100%;
+    transform: translateX(0);
   }
 
   .toolbar {
@@ -63,17 +103,22 @@
 
   .view {
     height: 0;
+    width: 0;
     overflow: hidden;
     background: white;
     transition: height .3s ease;
+  }
+
+  .devtools.active .view {
+    width: 100%;
   }
 
   .view_active .view {
     height: 300px;
   }
 
-  .active {
-    width: 100%;
+  .view_fullscreen.size_m .view {
+    height: calc(100vh - 32px);
   }
 
   .sticky {

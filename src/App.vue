@@ -33,7 +33,8 @@
     components: {Toolbar},
 
     methods: {
-      onTabClick() {
+      onTabClick(e) {
+        console.log('tab click', e);
         this.$store.commit('viewState', VIEW_STATE_ACTIVE)
       },
       onCloseClick() {

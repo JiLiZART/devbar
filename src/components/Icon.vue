@@ -42,10 +42,10 @@
       },
       sizeMap() {
         return {
-          xl: 40,
-          l: 32,
-          m: 24,
-          s: 16
+          xl: 38,
+          l: 30,
+          m: 20,
+          s: 14
         }
       }
     }
@@ -61,20 +61,20 @@
     background: no-repeat 50%;
   }
 
-  .size_xl {
-    height: 40px;
+  .icon.size_xl {
+    height: 38px;
   }
 
-  .size_l {
-    height: 32px;
+  .icon.size_l {
+    height: 30px;
   }
 
-  .size_m {
-    height: 24px;
+  .icon.size_m {
+    height: 20px;
   }
 
-  .size_s {
-    height: 16px;
+  .icon.size_s {
+    height: 14px;
   }
 
 </style>

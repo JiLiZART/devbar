@@ -13,7 +13,8 @@ export function createStore() {
       tabs: [],
       barActive: false,
       placement: 'bottom-right',
-      viewState: 'active'
+      viewState: 'active',
+      route: null
     },
     actions,
     mutations,

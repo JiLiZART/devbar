@@ -19,7 +19,7 @@
         <Icon name="clear" :size="size"></Icon>
       </Block>
       <Block>
-        <Icon name="moreVert" :size="size"></Icon>
+        <Icon name="moreVert" size="m"></Icon>
       </Block>
     </div>
   </div>

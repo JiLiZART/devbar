@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -22,7 +22,7 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    devtools: './src/main.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -58,8 +58,12 @@ module.exports = {
           // optional [svgo](https://github.com/svg/svgo) options
           svgo: {
             plugins: [
+              {removeXMLNS: true},
+              {cleanupAttrs: true},
+              // {removeViewBox: true},
+              // {removeDimensions: true},
               {removeDoctype: true},
-              {removeComments: true}
+              {removeComments: true},
             ]
           }
         }

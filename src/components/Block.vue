@@ -12,16 +12,23 @@
         </component>
       </template>
     </div>
-    <div class="block__info">
-      <div class="block__info-row">
-        <dt-text>Total time</dt-text>
-        <Label type="dark">184 ms</Label>
+    <template v-if="infoBlocks.length">
+      <div class="block__info" :key="rowsIdx">
+        <template v-for="(rows, rowsIdx) in infoBlocks">
+          <div class="block__info-row" :key="rowsIdx">
+            <template v-for="row in rows">
+              <component
+                v-if="row"
+                v-bind="row"
+                v-bind:key="row.id"
+                v-bind:is="row.is"
+              >{{ row.html }}
+              </component>
+            </template>
+          </div>
+        </template>
       </div>
-      <div class="block__info-row">
-        <dt-text>Initialization time</dt-text>
-        <Label type="dark">68 ms</Label>
-      </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -37,6 +44,7 @@
       size: String,
       url: {type: String, default: ''},
       content: {type: Array, default: () => ([])},
+      info: {type: Array, default: () => ([])},
       stretch: Boolean
     },
     components: {Icon, Text, Label},
@@ -62,6 +70,15 @@
           is: 'dt-text', // Text,
           html: item.text
         }
+      },
+      toComponent(item) {
+        return (
+          ({
+            [!!item.text]: this.toText,
+            [!!item.label]: this.toLabel,
+            [!!item.icon]: this.toIcon
+          })[!!1](item)
+        )
       }
     },
     computed: {
@@ -75,14 +92,15 @@
         }
       },
 
+      infoBlocks() {
+        const blocks = this.info.map(rows => rows.map(row => this.toComponent(row)))
+
+        console.log('info blocks', blocks)
+        return blocks
+      },
+
       contentBlocks() {
-        return this.content.map((item) => (
-          ({
-            [!!item.text]: this.toText,
-            [!!item.label]: this.toLabel,
-            [!!item.icon]: this.toIcon
-          })[!!1](item)
-        ))
+        return this.content.map((item) => this.toComponent(item))
       }
     }
   }
@@ -98,7 +116,7 @@
   }
 
   .block + .block {
-    border-right: 1px solid rgba(0, 0, 0, 0.11);
+    border-left: 1px solid rgba(0, 0, 0, 0.11);
   }
 
   .block.block_stretch {
@@ -147,6 +165,7 @@
   .block__info-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 4px;
   }
 

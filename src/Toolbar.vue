@@ -6,7 +6,7 @@
     <Block :titled="true" :size="size">
       <Logo></Logo>
     </Block>
-    <tabs :tabs="tabsBlocks" :size="size" @tabClick="onTabClick"></tabs>
+    <tabs :tabs="tabsBlocks" :size="size" :viewState="viewState" @tabClick="onTabClick"></tabs>
     <divider></divider>
     <div class="settings">
       <Block @click="onFullClick" v-show="closeVisible">
@@ -109,6 +109,7 @@
     name: 'Toolbar',
     props: {
       size: String,
+      viewState: String,
       closeVisible: Boolean,
       fullExitVisible: Boolean,
       barActive: Boolean,
@@ -124,9 +125,12 @@
     },
 
     methods: {
-      onTabClick(e) {
-        console.log('toolbar tab click', e)
-        this.$emit('tabClick', e)
+      onTabClick(tab) {
+        console.log('toolbar tab click', tab)
+        if (tab.route) {
+          this.$router.replace({name: tab.route})
+        }
+        this.$emit('tabClick', tab)
       },
       onCloseClick(e) {
         this.$emit('closeClick', e)

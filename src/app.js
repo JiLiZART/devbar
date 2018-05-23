@@ -9,14 +9,20 @@ Vue.config.productionTip = false
 
 // Expose a factory function that creates a fresh set of store, router,
 // app instances on each call (which is called for each SSR request)
-export function createApp() {
+export function createApp(state = {}) {
   // create store and router instances
   const store = createStore()
   const router = createRouter()
 
+  // prime the store with server-initialized state.
+  // the state is determined during SSR and inlined in the page markup.
+  if (state) {
+    store.replaceState(state)
+  }
+
   // sync the router with the vuex store.
   // this registers `store.state.route`
-  // sync(store, router)
+  sync(store, router)
 
   createComponents()
 

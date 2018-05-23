@@ -4,13 +4,7 @@ import {createApp} from './app'
 
 const state = window.__YII2_DEVTOOLS__
 
-const {app, router, store} = createApp()
-
-// prime the store with server-initialized state.
-// the state is determined during SSR and inlined in the page markup.
-if (state) {
-  store.replaceState(state)
-}
+const {app, router, store} = createApp(state)
 
 router.onReady(() => {
   console.log('router ready')

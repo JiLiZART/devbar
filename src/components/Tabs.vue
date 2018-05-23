@@ -3,9 +3,11 @@
     <template v-for="tab in tabs">
       <template v-if="tab.is">
         <dt-block
-          @click="onTabClick"
+          @click="onTabClick(tab, $event)"
           v-bind:key="tab.is"
           :size="size"
+          :active="isTabActive(tab)"
+          :withRoute="!!tab.route"
           class="tab"
           ref="tabRef"
         >
@@ -14,10 +16,12 @@
       </template>
       <template v-else>
         <dt-block
-          @click="onTabClick"
+          @click="onTabClick(tab, $event)"
           v-bind="tab"
           v-bind:key="tab.title"
           :size="size"
+          :active="isTabActive(tab)"
+          :withRoute="!!tab.route"
           class="tab"
           ref="tabRef"></dt-block>
       </template>
@@ -30,13 +34,19 @@
     name: 'Tabs',
     props: {
       tabs: {type: Array, default: () => ([])},
-      size: String
+      size: String,
+      viewState: String
     },
     components: {},
 
     methods: {
-      onTabClick(e) {
-        this.$emit('tabClick', e)
+      onTabClick(tab) {
+        this.$emit('tabClick', tab)
+      },
+
+      isTabActive(tab) {
+        console.log('$route', this.$route.name, tab.route, this.viewState);
+        return this.$route.name === tab.route && !!this.viewState
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="block" :class="classNames">
-    <div class="block__link" @click="onClick">
+    <div class="block__body" @click="onClick">
       <slot></slot>
       <template v-for="params in contentBlocks">
         <component
@@ -13,7 +13,7 @@
       </template>
     </div>
     <template v-if="infoBlocks.length">
-      <div class="block__info" :key="rowsIdx">
+      <div class="block__info">
         <template v-for="(rows, rowsIdx) in infoBlocks">
           <div class="block__info-row" :key="rowsIdx">
             <template v-for="row in rows">
@@ -42,7 +42,8 @@
     props: {
       titled: Boolean,
       size: String,
-      url: {type: String, default: ''},
+      active: Boolean,
+      withRoute: Boolean,
       content: {type: Array, default: () => ([])},
       info: {type: Array, default: () => ([])},
       stretch: Boolean
@@ -86,7 +87,7 @@
         return {
           titled: this.titled,
           block_active: this.active,
-          block_link: true,
+          block_link: Boolean(this.withRoute),
           block_stretch: Boolean(this.stretch),
           [`size_${this.size}`]: Boolean(this.size)
         }
@@ -128,8 +129,17 @@
     background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   }
 
-  .block__link {
+  .block.block_link {
+    background: rgb(247, 247, 247); /* Old browsers */
+  }
+
+  .block.block_link:hover {
     cursor: pointer;
+    background: rgb(247, 247, 247); /* Old browsers */
+    background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%);
+  }
+
+  .block__body {
     height: 100%;
     padding: 2px 6px;
     font: 10px Verdana, Arial, sans-serif;

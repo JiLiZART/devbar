@@ -24,7 +24,6 @@
 <style scoped>
 
   .label {
-    display: inline-block;
     padding: .25em .4em;
     margin: 0 4px;
     font-size: 12px;

@@ -1,13 +1,18 @@
 <template>
-    <span>WelcomeView</span>
+    <span>
+      <Button>Hello World</Button>
+
+    </span>
 </template>
 
 <script>
-    export default {
-        name: 'WelcomeView',
-        props: {},
-        components: {}
-    }
+  import Button from '@/components/Button.vue'
+
+  export default {
+    name: 'HomeView',
+    props: {},
+    components: {Button}
+  }
 </script>
 
 <style scoped>

@@ -4,6 +4,9 @@ import Router from 'vue-router'
 import HomeView from '@/views/HomeView'
 import ShellView from '@/views/ShellView'
 import FrameView from '@/views/FrameView'
+import LogsView from '@/views/LogsView'
+import ConfigView from '@/views/ConfigView'
+import RequestView from '@/views/RequestView'
 
 Vue.use(Router)
 
@@ -17,6 +20,11 @@ export function createRouter() {
         component: HomeView
       },
       {
+        path: '/',
+        name: 'logs',
+        component: LogsView
+      },
+      {
         path: '/shell',
         name: 'shell',
         component: ShellView
@@ -25,6 +33,16 @@ export function createRouter() {
         path: '/frame',
         name: 'frame',
         component: FrameView
+      },
+      {
+        path: '/config',
+        name: 'config',
+        component: ConfigView
+      },
+      {
+        path: '/request',
+        name: 'request',
+        component: RequestView
       }
     ]
   })

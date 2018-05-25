@@ -16,7 +16,34 @@
       @togglerClick="onTogglerClick"
     ></Toolbar>
     <div class="view">
-      <router-view></router-view>
+      <ElContainer>
+        <ElAside width="auto">
+
+          <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+                   :collapse="true">
+            <el-menu-item index="2">
+              <i class="el-icon-menu"></i>
+              <span slot="title">Navigator Two</span>
+            </el-menu-item>
+            <el-menu-item index="3" disabled>
+              <i class="el-icon-document"></i>
+              <span slot="title">Navigator Three</span>
+            </el-menu-item>
+            <el-menu-item index="4">
+              <i class="el-icon-setting"></i>
+              <span slot="title">Navigator Four</span>
+            </el-menu-item>
+          </el-menu>
+        </ElAside>
+        <ElContainer direction="vertical">
+          <ElHeader>
+            <DtButton>Hello</DtButton>
+          </ElHeader>
+          <ElMain>
+            <router-view></router-view>
+          </ElMain>
+        </ElContainer>
+      </ElContainer>
     </div>
   </div>
 </template>
@@ -30,12 +57,16 @@
 
   export default {
     name: 'App',
-    components: {Toolbar},
+    components: {
+      Toolbar
+    },
 
     methods: {
-      onTabClick(e) {
-        console.log('tab click', e);
-        this.$store.commit('viewState', VIEW_STATE_ACTIVE)
+      onTabClick(tab) {
+        console.log('tab click', tab);
+        if (tab.route) {
+          this.$store.commit('viewState', VIEW_STATE_ACTIVE)
+        }
       },
       onCloseClick() {
         this.$store.commit('viewState', '')
@@ -106,8 +137,9 @@
     height: 0;
     width: 0;
     overflow: hidden;
-    background: white;
+    background: rgb(247, 247, 247);
     transition: height .3s ease;
+    font-family: 'Open Sans', Roboto, 'Helvetica neue', Helvetica, sans-serif;
   }
 
   .devtools.active .view {

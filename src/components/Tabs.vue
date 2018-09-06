@@ -58,7 +58,7 @@
     width: 100%;
     white-space: nowrap;
     /*overflow-y: hidden;*/
-    /*overflow-x: auto;*/
+    overflow-x: auto;
     box-sizing: border-box;
   }
 </style>

@@ -7,6 +7,7 @@ import FrameView from '@/views/FrameView'
 import LogsView from '@/views/LogsView'
 import ConfigView from '@/views/ConfigView'
 import RequestView from '@/views/RequestView'
+import SettingsView from '@/views/SettingsView'
 
 Vue.use(Router)
 
@@ -43,6 +44,14 @@ export function createRouter() {
         path: '/request',
         name: 'request',
         component: RequestView
+      },
+      {
+        path: '/Settings',
+        name: 'settings',
+        component: SettingsView,
+        meta: {
+          title: 'Settings',
+        }
       }
     ]
   })

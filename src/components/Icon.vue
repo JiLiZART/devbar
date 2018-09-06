@@ -1,5 +1,5 @@
 <template>
-  <component :is="name" class="icon" :class="classObject" :width="sizeValue" :height="sizeValue"></component>
+  <v-icon class="icon" :class="classObject"  :size="size">{{ name }}</v-icon>
 </template>
 
 <script>
@@ -21,15 +21,15 @@
       size: {type: String, default: 'm'}
     },
     components: {
-      Settings,
-      DataUsage,
-      Memory,
-      Timer,
-      MoreVert,
-      Fullscreen,
-      FullscreenExit,
-      Clear,
-      ArrowRight
+//      Settings,
+//      DataUsage,
+//      Memory,
+//      Timer,
+//      MoreVert,
+//      Fullscreen,
+//      FullscreenExit,
+//      Clear,
+//      ArrowRight
     },
     computed: {
       classObject() {

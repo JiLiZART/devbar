@@ -1,5 +1,5 @@
 <template>
-  <a :href="url" class="logo">
+  <a :href="url" class="logo" :class="classNames">
     <img :src="image" :alt="title">
   </a>
 </template>
@@ -10,14 +10,22 @@
   export default {
     name: 'Logo',
     props: {
-      url: {type: String},
-      title: {type: String}
+      url: String,
+      title: String,
+      size: String
     },
     components: {},
-
     data() {
       return {
         image
+      }
+    },
+
+    computed: {
+      classNames() {
+        return {
+          [`size_${this.size}`]: Boolean(this.size)
+        }
       }
     }
   }
@@ -29,8 +37,12 @@
     height: 100%;
   }
 
+  .logo.size_s {
+    padding: 2px 0;
+    height: 20px;
+  }
+
   img {
     max-height: 100%;
-    width: auto;
   }
 </style>

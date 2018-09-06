@@ -43,12 +43,16 @@
       titled: Boolean,
       size: String,
       active: Boolean,
-      withRoute: Boolean,
       content: {type: Array, default: () => ([])},
       info: {type: Array, default: () => ([])},
       stretch: Boolean
     },
     components: {Icon, Text, Label},
+
+    mounted() {
+      console.log('Block.mounted', this);
+    },
+
     methods: {
       onClick(e) {
         this.$emit('click', e)
@@ -87,9 +91,9 @@
         return {
           titled: this.titled,
           block_active: this.active,
-          block_link: Boolean(this.withRoute),
           block_stretch: Boolean(this.stretch),
-          [`size_${this.size}`]: Boolean(this.size)
+          [`size_${this.size}`]: Boolean(this.size),
+          block_link: Boolean(this.onClick)
         }
       },
 
@@ -110,6 +114,7 @@
 <style scoped>
   .block {
     margin: 0;
+    height: 100%;
   }
 
   .block:hover {
@@ -121,7 +126,7 @@
   }
 
   .block.block_stretch {
-    padding: 2px 0;
+    /*padding: 2px 0;*/
   }
 
   .block.block_active {
@@ -130,7 +135,7 @@
   }
 
   .block.block_link {
-    background: rgb(247, 247, 247); /* Old browsers */
+    /*background: rgb(247, 247, 247); !* Old browsers *!*/
   }
 
   .block.block_link:hover {
@@ -141,7 +146,8 @@
 
   .block__body {
     height: 100%;
-    padding: 2px 6px;
+    padding: 0 6px;
+    min-height: 24px;
     font: 10px Verdana, Arial, sans-serif;
     box-sizing: border-box;
     white-space: nowrap;
@@ -189,21 +195,25 @@
     vertical-align: middle;
   }
 
-  .block.size_xl {
-    height: 48px;
+  .block :global .v-icon {
+    margin: 0;
   }
 
-  .block.size_l {
-    height: 40px;
-  }
+  /*.block.size_xl {*/
+  /*height: 48px;*/
+  /*}*/
 
-  .block.size_m {
-    height: 32px;
-  }
+  /*.block.size_l {*/
+  /*height: 40px;*/
+  /*}*/
 
-  .block.size_s {
-    height: 24px;
-  }
+  /*.block.size_m {*/
+  /*height: 32px;*/
+  /*}*/
+
+  /*.block.size_s {*/
+  /*height: 24px;*/
+  /*}*/
 
   .block.titled {
     background: rgb(247, 247, 247); /* Old browsers */

@@ -1,27 +1,26 @@
 <template>
   <div class="bar" :class="classNames">
-    <Block class="toggler" :stretch="true" @click="onTogglerClick">
-      <Icon name="arrow-right" :size="size"></Icon>
+    <Block class="toggler" :stretch="true" :titled="true" :size="size" @click="$emit('togglerClick')">
+      <Logo size="s"></Logo>
     </Block>
-    <Block :titled="true" :size="size">
-      <Logo></Logo>
-    </Block>
-    <tabs :tabs="tabsBlocks" :size="size" :viewState="viewState" @tabClick="onTabClick"></tabs>
-    <divider></divider>
-    <div class="settings">
-      <Block @click="onFullClick" v-show="closeVisible">
-        <Icon name="fullscreen" :size="size"></Icon>
-      </Block>
-      <Block @click="onFullExitClick" v-show="fullExitVisible">
-        <Icon name="fullscreen-exit" :size="size"></Icon>
-      </Block>
-      <Block @click="onCloseClick" v-show="closeVisible || fullExitVisible">
-        <Icon name="clear" :size="size"></Icon>
-      </Block>
-      <Block>
-        <Icon name="moreVert" size="m"></Icon>
-      </Block>
-    </div>
+    <v-system-bar status color="primary" lights-out>
+      <Tabs :tabs="tabsBlocks" :size="size" :viewState="viewState" @tabClick="onTabClick"></Tabs>
+      <Divider></Divider>
+      <div class="settings">
+        <Block @click="$emit('fullClick')" v-show="closeVisible">
+          <Icon name="fullscreen" :size="size"></Icon>
+        </Block>
+        <Block @click="$emit('fullExitClick')" v-show="fullExitVisible">
+          <Icon name="fullscreen_exit" :size="size"></Icon>
+        </Block>
+        <Block @click="$emit('closeClick')" v-show="closeVisible || fullExitVisible">
+          <Icon name="clear" :size="size"></Icon>
+        </Block>
+        <Block @click="onSettingsClick">
+          <Icon name="more_vert" size="m"></Icon>
+        </Block>
+      </div>
+    </v-system-bar>
   </div>
 </template>
 
@@ -30,11 +29,11 @@
     position: relative;
     display: flex;
     padding: 0;
-    font: 11px Verdana, Arial, sans-serif;
+    /*font: 11px Verdana, Arial, sans-serif;*/
     text-align: left;
     box-sizing: content-box;
     border: 1px solid rgba(0, 0, 0, 0.11);
-    background: rgb(247, 247, 247);
+    /*background: rgb(247, 247, 247);*/
     /*background: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(247, 247, 247) 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
 
     /* ensure debug toolbar text is displayed ltr even on rtl pages */
@@ -48,7 +47,7 @@
     align-items: center;
     justify-content: center;
     transform: translateX(-100%);
-    background: rgb(247, 247, 247);
+    /*background: rgb(247, 247, 247);*/
     box-sizing: content-box;
     border: 1px solid rgba(0, 0, 0, 0.11);
     border-left-color: rgba(0, 0, 0, 0.2);
@@ -70,26 +69,26 @@
     position: absolute;
     right: 0;
     z-index: 10000001;
-    background: rgb(247, 247, 247);
-    border-left: 1px solid rgba(0, 0, 0, 0.11);
-    box-shadow: -2px 0 1px 0 rgb(247, 247, 247);
+    /*background: rgb(247, 247, 247);*/
+    /*border-left: 1px solid rgba(0, 0, 0, 0.11);*/
+    /*box-shadow: -2px 0 1px 0 rgb(247, 247, 247);*/
   }
 
-  .size_xl {
-    height: 48px;
-  }
+  /*.size_xl {*/
+  /*height: 48px;*/
+  /*}*/
 
-  .size_l {
-    height: 40px;
-  }
+  /*.size_l {*/
+  /*height: 40px;*/
+  /*}*/
 
-  .size_m {
-    height: 32px;
-  }
+  /*.size_m {*/
+  /*height: 32px;*/
+  /*}*/
 
-  .size_s {
-    height: 24px;
-  }
+  /*.size_s {*/
+  /*height: 24px;*/
+  /*}*/
 
 </style>
 
@@ -104,6 +103,9 @@
   import Icon from './components/Icon'
   import nanoid from 'nanoid'
   import url from 'nanoid/url'
+
+  export const VIEW_STATE_ACTIVE = 'active'
+  export const VIEW_STATE_FULL = 'fullscreen'
 
   export default {
     name: 'Toolbar',
@@ -126,23 +128,14 @@
 
     methods: {
       onTabClick(tab) {
-        console.log('toolbar tab click', tab)
         if (tab.route) {
           this.$router.replace({name: tab.route})
         }
         this.$emit('tabClick', tab)
       },
-      onCloseClick(e) {
-        this.$emit('closeClick', e)
-      },
-      onFullClick(e) {
-        this.$emit('fullClick', e)
-      },
-      onFullExitClick(e) {
-        this.$emit('fullExitClick', e)
-      },
-      onTogglerClick(e) {
-        this.$emit('togglerClick')
+      onSettingsClick() {
+        this.$store.commit('viewState', VIEW_STATE_FULL)
+        this.$router.replace({name: 'settings'})
       },
 
       toVueComponent(block) {

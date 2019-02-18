@@ -1,25 +1,18 @@
 <template>
-  <div class="bar" :class="classNames">
-    <Block class="toggler" :stretch="true" :titled="true" :size="size" @click="$emit('togglerClick')">
-      <Logo size="s"></Logo>
-    </Block>
-    <div class="blocks">
-      <Tabs :tabs="tabsBlocks" :size="size" :viewState="viewState" @tabClick="onTabClick"></Tabs>
-      <Divider></Divider>
-      <div class="settings">
-        <Block @click="$emit('fullClick')" v-show="closeVisible">
-          <Icon name="fullscreen" :size="size"></Icon>
-        </Block>
-        <Block @click="$emit('fullExitClick')" v-show="fullExitVisible">
-          <Icon name="fullscreen_exit" :size="size"></Icon>
-        </Block>
-        <Block @click="$emit('closeClick')" v-show="closeVisible || fullExitVisible">
-          <Icon name="clear" :size="size"></Icon>
-        </Block>
-        <Block @click="onSettingsClick">
-          <Icon name="more_vert" :size="size"></Icon>
-        </Block>
-      </div>
+  <div class="tab-bar" :class="classNames">
+    <div class="tab-bar__content">
+      <TabBarToggler :logo="logo" />
+      <Tabs :tabs="tabsBlocks" :size="size" :viewState="viewState" @tabClick="onTabClick">
+        <template slot="right">
+          <SettingsBar
+          :closeVisible="closeVisible"
+          :fullExitVisible="fullExitVisible"
+          @fullClick="$emit('fullClick', $event)"
+          @fullExitClick="$emit('fullExitClick', $event)"
+          @closeClick="$emit('closeClick', $event)"
+          />
+        </template>
+      </Tabs>
     </div>
   </div>
 </template>
@@ -31,6 +24,9 @@
   import Panel from '../components/Panel'
   import Tabs from '../components/Tabs'
   import Icon from '../components/Icon'
+
+  import TabBarToggler from '../components/TabBarToggler'
+  import SettingsBar from '../components/SettingsBar'
   import {VIEW_STATE_FULL} from '../constants/viewStateConstants'
   import {MUTATION_VIEW_STATE} from '../constants/mutationNamesConstants'
   import {toVueComponent} from '../helpers/componentHelper'
@@ -40,6 +36,7 @@
     name: 'Toolbar',
     props: {
       size: String,
+      logo: String,
       viewState: String,
       closeVisible: Boolean,
       fullExitVisible: Boolean,
@@ -52,7 +49,9 @@
       Panel,
       Divider,
       Tabs,
-      Icon
+      Icon,
+      SettingsBar,
+      TabBarToggler
     },
 
     methods: {
@@ -79,6 +78,7 @@
       },
 
       tabsBlocks() {
+        console.log('tabBlocks', this.tabs)
         return this.tabs.map((block) => (block.template ? toVueComponent(block) : block))
       }
     }
@@ -86,6 +86,16 @@
 </script>
 
 <style scoped>
+  .tab-bar {
+    flex: 0 0 auto;
+  }
+
+  .tab-bar__content {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #eeeeee;
+  }
+
   .bar {
     position: relative;
     display: flex;
@@ -127,17 +137,6 @@
   .bar_active .toggler {
     transform: translateX(0);
     border: none;
-  }
-
-  .settings {
-    display: flex;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    z-index: 10000001;
-    /*background: rgb(247, 247, 247);*/
-    /*border-left: 1px solid rgba(0, 0, 0, 0.11);*/
-    /*box-shadow: -2px 0 1px 0 rgb(247, 247, 247);*/
   }
 
 </style>

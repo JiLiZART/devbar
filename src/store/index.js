@@ -27,6 +27,10 @@ const settings = {
 }
 
 export function extractState(state) {
+  if (!state) {
+    return {}
+  }
+
   return {
     logo: state.logo,
     title: state.title,
@@ -35,24 +39,25 @@ export function extractState(state) {
   }
 }
 
-export function createStore() {
+export function createStore(state) {
   return new Vuex.Store({
     strict: process.env.NODE_ENV !== 'production',
     plugins: [
-      createPersistedState({
-        key: 'devtools_settings',
-        paths: [
-          'settings'
-        ]
-      }),
-      settingsStoragePlugin
+      // createPersistedState({
+      //   key: 'devtools_settings',
+      //   paths: [
+      //     'settings'
+      //   ]
+      // }),
+      // settingsStoragePlugin
     ],
     state: {
       logo: null,
       title: 'Devtools.js',
       tabs: [],
       settings,
-      route: null
+      route: null,
+      ...state
     },
     actions,
     mutations,

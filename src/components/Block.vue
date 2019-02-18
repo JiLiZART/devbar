@@ -89,7 +89,7 @@
           titled: this.titled,
           block_active: this.active,
           block_stretch: Boolean(this.stretch),
-          [`size_${this.size}`]: Boolean(this.size),
+          [`block_size_${this.size}`]: Boolean(this.size),
           block_link: Boolean(this.onClick)
         }
       },
@@ -127,7 +127,7 @@
 
   .block.block_active {
     background: rgb(247, 247, 247); /* Old browsers */
-    background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    /*background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
   }
 
   .block.block_link {
@@ -136,8 +136,8 @@
 
   .block.block_link:hover {
     cursor: pointer;
-    background: rgb(247, 247, 247); /* Old browsers */
-    background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%);
+    background: hsla(360, 100%, 100%, 1); /* Old browsers */
+    /*background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%);*/
   }
 
   .block__body {

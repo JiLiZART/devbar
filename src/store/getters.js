@@ -5,6 +5,7 @@ import {SIZE_M} from '../constants/sizeConstants'
 export default {
   barActive: state => state.settings.barActive,
   tabs: state => state.tabs,
+  logo: state => state.logo,
   viewState: state => state.settings.viewState,
   viewStateActive: state => state.settings.viewState === VIEW_STATE_ACTIVE,
   viewStateFull: state => state.settings.viewState === VIEW_STATE_FULL,

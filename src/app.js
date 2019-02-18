@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 // app instances on each call (which is called for each SSR request)
 export function createApp(state = {}) {
   // create store and router instances
-  const store = createStore()
+  const store = createStore(extractState(state))
   const router = createRouter()
 
   // prime the store with server-initialized state.

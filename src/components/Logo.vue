@@ -10,14 +10,10 @@
     props: {
       url: String,
       title: String,
-      size: String
+      size: String,
+      image: String
     },
     components: {},
-    data() {
-      return {
-        image: ''
-      }
-    },
 
     computed: {
       classNames() {

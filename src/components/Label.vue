@@ -22,7 +22,6 @@
 </script>
 
 <style scoped>
-
   .label {
     padding: .25em .4em;
     margin: 0 4px;
@@ -39,49 +38,48 @@
 
   a.label:hover,
   a.label:focus {
-    color: #ffffff;
+    /*color: #ffffff;*/
     text-decoration: none;
     cursor: pointer;
   }
 
   .primary {
-    color: #ffffff;
-    background-color: #007bff;
+    color: #7540EE;
+    background-color: rgba(117, 64, 238, .2);
   }
 
   .secondary {
-    color: #ffffff;
+    color: #6c757d;
     background-color: #6c757d;
   }
 
   .success {
-    color: #fff;
-    background-color: #28a745;
+    color: #2DC76D;
+    background-color: rgba(45, 199, 109, .2);
   }
 
   .danger {
-    color: #fff;
-    background-color: #dc3545;
+    color: #FF7052;
+    background-color: rgba(255, 112, 82, .2);
   }
 
   .warning {
-    color: #212529;
-    background-color: #ffc107;
+    color: #ffc107;
+    background-color: rgba(255, 193, 7, .2);
   }
 
   .info {
-    color: #fff;
-    background-color: #17a2b8;
+    color: #3FB6DC;
+    background-color: rgba(63, 182, 220, .2);
   }
 
   .light {
-    color: #212529;
-    background-color: #f8f9fa;
+    color: #f8f9fa;
+    background-color: rgba(248, 249, 250, .2);
   }
 
   .dark {
-    color: #fff;
-    background-color: #343a40;
+    color: #343a40;
+    background-color: rgba(52, 58, 64, .2);
   }
-
 </style>

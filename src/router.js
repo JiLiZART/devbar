@@ -8,6 +8,10 @@ import LogsView from '@/views/LogsView'
 import ConfigView from '@/views/ConfigView'
 import RequestView from '@/views/RequestView'
 import SettingsView from '@/views/SettingsView'
+import {
+  ROUTE_NAME_CONFIG, ROUTE_NAME_FRAME, ROUTE_NAME_HOME, ROUTE_NAME_LOGS, ROUTE_NAME_REQUEST, ROUTE_NAME_SETTINGS,
+  ROUTE_NAME_SHELL
+} from "./constants/routeNamesConstants";
 
 Vue.use(Router)
 
@@ -17,40 +21,40 @@ export function createRouter() {
     routes: [
       {
         path: '/',
-        name: 'home',
+        name: ROUTE_NAME_HOME,
         component: HomeView
       },
       {
-        path: '/',
-        name: 'logs',
+        path: '/logs',
+        name: ROUTE_NAME_LOGS,
         component: LogsView
       },
       {
         path: '/shell',
-        name: 'shell',
+        name: ROUTE_NAME_SHELL,
         component: ShellView
       },
       {
         path: '/frame',
-        name: 'frame',
+        name: ROUTE_NAME_FRAME,
         component: FrameView
       },
       {
         path: '/config',
-        name: 'config',
+        name: ROUTE_NAME_CONFIG,
         component: ConfigView
       },
       {
         path: '/request',
-        name: 'request',
+        name: ROUTE_NAME_REQUEST,
         component: RequestView
       },
       {
         path: '/Settings',
-        name: 'settings',
+        name: ROUTE_NAME_SETTINGS,
         component: SettingsView,
         meta: {
-          title: 'Settings',
+          title: 'Settings'
         }
       }
     ]

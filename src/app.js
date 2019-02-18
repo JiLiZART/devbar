@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import {sync} from 'vuex-router-sync'
-import {createStore} from './store'
+import {createStore, extractState} from './store'
 import {createRouter} from './router'
 import {createComponents} from './components'
 import App from './App.vue'
+import {MUTATION_SETTINGS_LOAD} from './constants/mutationNamesConstants'
 
 Vue.config.productionTip = false
 
@@ -17,7 +18,8 @@ export function createApp(state = {}) {
   // prime the store with server-initialized state.
   // the state is determined during SSR and inlined in the page markup.
   if (state) {
-    store.replaceState(state)
+    // store.commit(MUTATION_SETTINGS_LOAD, extractState(state))
+    // store.replaceState(extractState(state))
   }
 
   // sync the router with the vuex store.

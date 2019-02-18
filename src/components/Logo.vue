@@ -5,8 +5,6 @@
 </template>
 
 <script>
-  import image from '../assets/logo.png'
-
   export default {
     name: 'Logo',
     props: {
@@ -17,7 +15,7 @@
     components: {},
     data() {
       return {
-        image
+        image: ''
       }
     },
 

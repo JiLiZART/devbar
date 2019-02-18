@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'Label',
+    name: 'DtLabel',
     props: {
       type: {type: String}
     },

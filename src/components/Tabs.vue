@@ -2,7 +2,7 @@
   <div class="tabs">
     <template v-for="tab in tabs">
       <template v-if="tab.is">
-        <dt-block
+        <DtBlock
           @click="onTabClick(tab, $event)"
           v-bind:key="tab.is"
           :size="size"
@@ -12,10 +12,10 @@
           ref="tabRef"
         >
           <component v-bind="tab" v-bind:is="tab.is"></component>
-        </dt-block>
+        </DtBlock>
       </template>
       <template v-else>
-        <dt-block
+        <DtBlock
           @click="onTabClick(tab, $event)"
           v-bind="tab"
           v-bind:key="tab.title"
@@ -23,7 +23,7 @@
           :active="isTabActive(tab)"
           :withRoute="!!tab.route"
           class="tab"
-          ref="tabRef"></dt-block>
+          ref="tabRef"></DtBlock>
       </template>
     </template>
   </div>
@@ -33,7 +33,7 @@
   export default {
     name: 'Tabs',
     props: {
-      tabs: {type: Array, default: () => ([])},
+      tabs: {type: Array, 'default': () => ([])},
       size: String,
       viewState: String
     },
@@ -45,7 +45,6 @@
       },
 
       isTabActive(tab) {
-        console.log('$route', this.$route.name, tab.route, this.viewState);
         return this.$route.name === tab.route && !!this.viewState
       }
     }

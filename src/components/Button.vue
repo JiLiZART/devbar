@@ -1,11 +1,11 @@
 <template>
-  <ElButton v-bind="props"><slot></slot></ElButton>
+  <button><slot></slot></button>
 </template>
 
 <script>
   export default {
     name: 'Button',
-    props: {},
+    props: {}
   }
 </script>
 

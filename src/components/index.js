@@ -1,51 +1,115 @@
 import Vue from 'vue'
 import '@babel/polyfill'
-import Vuetify from 'vuetify'
+
+/*
+import VueMaterial from 'vue-material'
+
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default-dark.css'
+*/
+
+import 'muse-ui/lib/styles/base.less'
+import {
+  Alert,
+  AppBar,
+  AutoComplete,
+  Avatar,
+  Badge,
+  BottomNav,
+  BottomSheet,
+  Breadcrumbs,
+  Button,
+  Card,
+  Checkbox,
+  Chip,
+  DateInput,
+  DataTable,
+  Dialog,
+  Divider,
+  Drawer,
+  ExpansionPanel,
+  Form,
+  Grid,
+  GridList,
+  Helpers,
+  Icon,
+  List,
+  LoadMore,
+  Menu,
+  Pagination,
+  Paper,
+  Picker,
+  Popover,
+  Progress,
+  Radio,
+  Select,
+  SlidePicker,
+  Slider,
+  Snackbar,
+  Stepper,
+  SubHeader,
+  Switch,
+  Tabs,
+  TextField,
+  Tooltip,
+  theme
+} from 'muse-ui'
+import 'muse-ui/lib/styles/theme.less'
+
 import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
-import 'vuetify/dist/vuetify.min.css'
 
-// import {
-//   Button, Tabs, TabPane, Table, TableColumn, Container, Aside, Header, Main,
-//   Menu, MenuItem,
-// } from 'element-ui'
-
-import Label from './Label.vue'
-import Block from './Block.vue'
-import Text from './Text.vue'
-import Icon from './Icon.vue'
+import DtLabel from './Label.vue'
+import DtBlock from './Block.vue'
+import DtText from './Text.vue'
+import DtIcon from './Icon.vue'
 
 export function createComponents() {
-  Vue.component('DtIcon', Icon)
-  Vue.component('DtLabel', Label)
-  Vue.component('DtBlock', Block)
-  Vue.component('DtText', Text)
+  Vue.component(DtIcon.name, DtIcon)
+  Vue.component(DtLabel.name, DtLabel)
+  Vue.component(DtBlock.name, DtBlock)
+  Vue.component(DtText.name, DtText)
 
-  Vue.use(Vuetify, {
-    theme: {
-      primary: '#ee44aa',
-      secondary: '#424242',
-      accent: '#82B1FF',
-      error: '#FF5252',
-      info: '#2196F3',
-      success: '#4CAF50',
-      warning: '#FFC107'
-    }
-  })
-
-
-  // Vue.component(Button.name, Button)
-  //
-  // Vue.component(Tabs.name, Tabs)
-  // Vue.component(TabPane.name, TabPane)
-  //
-  // Vue.component(Table.name, Table)
-  // Vue.component(TableColumn.name, TableColumn)
-  //
-  // Vue.component(Container.name, Container)
-  // Vue.component(Aside.name, Aside)
-  // Vue.component(Header.name, Header)
-  // Vue.component(Main.name, Main)
-  //
-  // Vue.component(Menu.name, Menu)
-  // Vue.component(MenuItem.name, MenuItem)
+  Vue.use(Alert)
+  Vue.use(AppBar)
+  Vue.use(AutoComplete)
+  Vue.use(Avatar)
+  Vue.use(Badge)
+  Vue.use(BottomNav)
+  Vue.use(BottomSheet)
+  Vue.use(Breadcrumbs)
+  Vue.use(Button)
+  Vue.use(Card)
+  Vue.use(Checkbox)
+  Vue.use(Chip)
+  Vue.use(DateInput)
+  Vue.use(DataTable)
+  Vue.use(Dialog)
+  Vue.use(Divider)
+  Vue.use(Drawer)
+  Vue.use(ExpansionPanel)
+  Vue.use(Form)
+  Vue.use(Grid)
+  Vue.use(GridList)
+  Vue.use(Helpers)
+  Vue.use(Icon)
+  Vue.use(List)
+  Vue.use(LoadMore)
+  Vue.use(Menu)
+  Vue.use(Pagination)
+  Vue.use(Paper)
+  Vue.use(Picker)
+  Vue.use(Popover)
+  Vue.use(Progress)
+  Vue.use(Radio)
+  Vue.use(Select)
+  Vue.use(SlidePicker)
+  Vue.use(Slider)
+  Vue.use(Snackbar)
+  Vue.use(Stepper)
+  Vue.use(SubHeader)
+  Vue.use(Switch)
+  Vue.use(Tabs)
+  Vue.use(TextField)
+  Vue.use(Tooltip)
+  // Vue.use(VueMaterial)
 }

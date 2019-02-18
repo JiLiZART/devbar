@@ -1,5 +1,18 @@
+import {VIEW_STATE_ACTIVE, VIEW_STATE_FULL} from '../constants/viewStateConstants'
+import {PLACEMENT_BOTTOM_RIGHT} from '../constants/placementConstants'
+import {SIZE_M} from '../constants/sizeConstants'
+
 export default {
-  test(state) {
-    return state
-  }
+  barActive: state => state.settings.barActive,
+  tabs: state => state.tabs,
+  viewState: state => state.settings.viewState,
+  viewStateActive: state => state.settings.viewState === VIEW_STATE_ACTIVE,
+  viewStateFull: state => state.settings.viewState === VIEW_STATE_FULL,
+  placement: state => (state.placement ? state.settings.placement : PLACEMENT_BOTTOM_RIGHT),
+  size: state => (state.size ? state.size : SIZE_M),
+  sticky: state => true
 }
+
+// barActive: false,
+//         placement: PLACEMENT_BOTTOM_RIGHT,
+//         viewState: VIEW_STATE_ACTIVE

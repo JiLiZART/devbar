@@ -1,35 +1,13 @@
 <template>
-  <v-icon class="icon" :class="classObject"  :size="size">{{ name }}</v-icon>
+  <mu-icon class="icon" :class="classObject" :size="size" :value="name"></mu-icon>
 </template>
 
 <script>
-  import Settings from 'material-design-icons/action/svg/production/ic_settings_24px.svg'
-  import DataUsage from 'material-design-icons/device/svg/production/ic_data_usage_24px.svg'
-  import Memory from 'material-design-icons/hardware/svg/production/ic_memory_24px.svg'
-  import Timer from 'material-design-icons/image/svg/production/ic_timer_24px.svg'
-  import MoreVert from 'material-design-icons/navigation/svg/production/ic_more_vert_24px.svg'
-
-  import Fullscreen from 'material-design-icons/navigation/svg/production/ic_fullscreen_24px.svg'
-  import FullscreenExit from 'material-design-icons/navigation/svg/production/ic_fullscreen_exit_24px.svg'
-  import Clear from 'material-design-icons/content/svg/production/ic_clear_24px.svg'
-  import ArrowRight from 'material-design-icons/hardware/svg/production/ic_keyboard_arrow_right_24px.svg'
-
   export default {
-    name: 'Icon',
+    name: 'DtIcon',
     props: {
       name: String,
-      size: {type: String, default: 'm'}
-    },
-    components: {
-//      Settings,
-//      DataUsage,
-//      Memory,
-//      Timer,
-//      MoreVert,
-//      Fullscreen,
-//      FullscreenExit,
-//      Clear,
-//      ArrowRight
+      size: {type: String, 'default': 'm'}
     },
     computed: {
       classObject() {

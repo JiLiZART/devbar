@@ -1,7 +1,6 @@
 <template>
     <span>
       <Button>Hello World</Button>
-
     </span>
 </template>
 

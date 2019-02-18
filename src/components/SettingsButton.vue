@@ -7,8 +7,7 @@
 <script>
   export default {
     name: 'SettingsButton',
-    props: {},
-    components: {}
+    props: {}
   }
 </script>
 

@@ -38,7 +38,7 @@
   import Label from './Label'
 
   export default {
-    name: 'Block',
+    name: 'DtBlock',
     props: {
       titled: Boolean,
       size: String,
@@ -47,11 +47,8 @@
       info: {type: Array, default: () => ([])},
       stretch: Boolean
     },
-    components: {Icon, Text, Label},
 
-    mounted() {
-      console.log('Block.mounted', this);
-    },
+    mounted() {},
 
     methods: {
       onClick(e) {
@@ -59,20 +56,20 @@
       },
       toLabel(item) {
         return {
-          is: 'dt-label', // Label,
+          is: Label.name,
           type: item.type,
           html: item.label
         }
       },
       toIcon(item) {
         return {
-          is: 'dt-icon', // Icon,
+          is: Icon.name,
           name: item.icon
         }
       },
       toText(item) {
         return {
-          is: 'dt-text', // Text,
+          is: Text.name,
           html: item.text
         }
       },
@@ -100,7 +97,6 @@
       infoBlocks() {
         const blocks = this.info.map(rows => rows.map(row => this.toComponent(row)))
 
-        console.log('info blocks', blocks)
         return blocks
       },
 
@@ -147,7 +143,7 @@
   .block__body {
     height: 100%;
     padding: 0 6px;
-    min-height: 24px;
+    min-height: 32px;
     font: 10px Verdana, Arial, sans-serif;
     box-sizing: border-box;
     white-space: nowrap;

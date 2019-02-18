@@ -9,7 +9,7 @@
     components: {},
     methods: {},
     mounted() {
-      console.log('terminal mounted', this.$el);
+      console.log('terminal mounted', this.$el)
     }
   }
 </script>

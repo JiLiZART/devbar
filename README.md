@@ -1,6 +1,6 @@
-# yii2-devtools-js
+# devtools-js
 
-> Yii2 debug tools js
+> debug tools to integrate with your lovely framework
 
 ## Build Setup
 

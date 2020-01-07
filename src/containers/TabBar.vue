@@ -1,7 +1,7 @@
 <template>
   <div class="tab-bar" :class="classNames">
     <div class="tab-bar__content">
-      <TabBarToggler :logo="logo" />
+      <TabBarToggler :logo="logo" @togglerClick="$emit('togglerClick', $event)" />
       <Tabs :tabs="tabsBlocks" :size="size" :viewState="viewState" @tabClick="onTabClick">
         <template slot="right">
           <SettingsBar

@@ -45,7 +45,8 @@
       active: Boolean,
       content: {type: Array, default: () => ([])},
       info: {type: Array, default: () => ([])},
-      stretch: Boolean
+      stretch: Boolean,
+      withRoute: Boolean
     },
 
     mounted() {},
@@ -90,7 +91,7 @@
           block_active: this.active,
           block_stretch: Boolean(this.stretch),
           [`block_size_${this.size}`]: Boolean(this.size),
-          block_link: Boolean(this.onClick)
+          block_link: Boolean(this.withRoute),
         }
       },
 

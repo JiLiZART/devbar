@@ -19,7 +19,7 @@
         />
       </div>
       <div class="devtools__tab-content">
-        <TabContent :title="pageTitle"/>
+        <TabContent :title="pageTitle" v-if="!!viewState"/>
       </div>
     </div>
   </div>
@@ -48,7 +48,7 @@
     methods: {
       onTabClick(tab) {
         console.log('tab click', tab)
-        if (tab.route) {
+        if (tab.route && !this.viewStateFull) {
           this.$store.commit(MUTATION_VIEW_STATE, VIEW_STATE_ACTIVE)
         }
       },
@@ -98,11 +98,17 @@
 
 <style scoped>
   .devtools {
-    /*height: 400px;*/
-    /*max-height: 50%;*/
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    width: 32px;
+    /*transition: width .3s ease;*/
+    height: 32px;
+    max-height: 50%;
+
+    transition: transform 0.1s ease-out, height .2s ease-out, max-height .2s ease-out;
+    transform: translateX(calc(100% - 32px));
   }
 
   .devtools__content {
@@ -126,23 +132,29 @@
     flex: 0 0 auto;
   }
 
-  .devtools__tab-content {
-    flex: 1 1 100%;
-  }
-
   .devtools_active {
     width: 100%;
     transform: translateX(0);
+  }
+
+  .devtools_view_active {
+    max-height: 50%;
+    height: 400px;
+  }
+
+  .devtools_view_fullscreen {
+    height: 100vh;
+    max-height: 100%;
   }
 
   .tab-bar {
     text-align: left;
     transition: width .3s ease;
     z-index: 1000000;
-
   }
 
   .devtools__tab-content {
+    flex: 1 1 100%;
     position: relative;
     visibility: hidden;
     height: 0;
@@ -159,7 +171,7 @@
 
   .devtools_view_active .devtools__tab-content {
     visibility: visible;
-    height: 300px;
+    height: 100%;
     width: 100%;
   }
 

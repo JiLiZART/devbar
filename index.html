@@ -11,7 +11,7 @@
 
 <template type="text/x-template" id="mySuperInfoTemplate">
   <dt-block>
-    Supert Block
+    Supert Block <b> {{ superTest }} </b>
     <dt-label>Test Label info</dt-label>
   </dt-block>
 </template>
@@ -110,9 +110,12 @@
           template: '#mySuperInfoTemplate',
           data: function () {
             return {
-              superTest: '123',
+              superTest: 'Version',
             }
           }
+        },
+        {
+          gridTableJson: '/ahsdasd'
         }
       ]
     }

@@ -4,7 +4,7 @@ import {createStore, extractState} from './store'
 import {createRouter} from './router'
 import {createComponents} from './components'
 import App from './App.vue'
-import {MUTATION_SETTINGS_LOAD} from './constants/mutationNamesConstants'
+// import {MUTATION_SETTINGS_LOAD} from './constants/mutationNamesConstants'
 
 Vue.config.productionTip = false
 

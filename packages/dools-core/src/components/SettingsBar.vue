@@ -24,11 +24,16 @@
     props: {
       fullExitVisible: Boolean,
       closeVisible: Boolean,
-      size: String,
+      size: String
     },
     components: {
       Block,
       Icon
+    },
+    methods: {
+        onSettingsClick() {
+
+        }
     }
   }
 </script>

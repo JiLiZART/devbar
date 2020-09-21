@@ -8,7 +8,6 @@ import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default-dark.css'
 */
 
-import 'muse-ui/lib/styles/base.less'
 import {
   Alert,
   AppBar,
@@ -54,9 +53,6 @@ import {
   Tooltip,
   theme
 } from 'muse-ui/lib/index'
-import 'muse-ui/lib/styles/theme.less'
-
-import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
 
 import DtLabel from './Label.vue'
 import DtBlock from './Block.vue'

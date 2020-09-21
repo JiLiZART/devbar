@@ -86,3 +86,9 @@
     </template>
   </Devtools>
 </template>
+
+<style lang="less" scoped>
+  @import "~muse-ui/lib/styles/base.less";
+  @import "~muse-ui/lib/styles/theme.less";
+  /*@import "~material-design-icons-iconfont/dist/material-design-icons.css";*/
+</style>

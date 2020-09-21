@@ -1,6 +1,8 @@
 <template>
   <Block class="tabbar-toggler" :stretch="true" :titled="true" :size="size" @click="$emit('togglerClick')">
-    <Logo size="s" :image="logo" />
+    <div class="tabbar-toggler__block">
+      <Logo class="tabbar-toggler__logo" size="md" :image="logo" />
+    </div>
   </Block>
 </template>
 
@@ -23,7 +25,16 @@
 
 <style scoped>
 .tabbar-toggler {
-  width: 32px;
-  height: 32px;
+  min-width: 37px;
+  min-height: 37px;
+}
+.tabbar-toggler__block {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.tabbar-toggler__logo {
+  height: 36px;
+  padding: 4px;
 }
 </style>

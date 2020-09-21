@@ -53,7 +53,7 @@ import {
   TextField,
   Tooltip,
   theme
-} from 'muse-ui'
+} from 'muse-ui/lib/index'
 import 'muse-ui/lib/styles/theme.less'
 
 import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader

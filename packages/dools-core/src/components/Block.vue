@@ -13,7 +13,7 @@
       </template>
     </div>
     <template v-if="infoBlocks.length">
-      <div class="block__info">
+      <mu-paper class="block__info" :z-depth="1">
         <template v-for="(rows, rowsIdx) in infoBlocks">
           <div class="block__info-row" :key="rowsIdx">
             <template v-for="row in rows">
@@ -27,7 +27,7 @@
             </template>
           </div>
         </template>
-      </div>
+      </mu-paper>
     </template>
   </div>
 </template>
@@ -153,15 +153,16 @@
   }
 
   .block__info {
-    bottom: 36px;
-    display: block;
+    bottom: 42px;
+    /*display: block;*/
     visibility: hidden;
     padding: 10px 0;
     position: absolute;
-    border: 1px solid rgba(0, 0, 0, 0.11);
-    background: rgb(247, 247, 247);
+    /*border: 1px solid rgba(0, 0, 0, 0.11);*/
+    /*background: rgb(247, 247, 247);*/
     opacity: 0;
     transition: opacity 0.1s ease-out;
+    border-radius: 6px;
   }
 
   .block:hover .block__info {
@@ -215,6 +216,10 @@
   .block.titled {
     background: rgb(247, 247, 247); /* Old browsers */
     background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  }
+
+  .block.titled .block__body {
+    padding: 0;
   }
 
 </style>

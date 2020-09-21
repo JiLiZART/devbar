@@ -30,6 +30,5 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    border-top: 1px solid #eeeeee;
   }
 </style>

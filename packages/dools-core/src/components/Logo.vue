@@ -1,7 +1,7 @@
 <template>
-  <a :href="url" class="logo" :class="classNames">
+  <button class="logo" :class="classNames">
     <img :src="image" :alt="title">
-  </a>
+  </button>
 </template>
 
 <script>
@@ -29,11 +29,24 @@
   .logo {
     display: block;
     height: 100%;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    outline: none;
+    background: transparent;
+  }
+
+  .logo:hover {
+    outline: none;
   }
 
   .logo.size_s {
-    padding: 2px 0;
     height: 20px;
+  }
+
+  .logo.size_md {
+    height: 34px;
   }
 
   img {

@@ -23,7 +23,8 @@
     name: 'SettingsBar',
     props: {
       fullExitVisible: Boolean,
-      closeVisible: Boolean
+      closeVisible: Boolean,
+      size: String,
     },
     components: {
       Block,

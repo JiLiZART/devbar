@@ -23,6 +23,17 @@ export default {
 
   mounted() {
     console.log("mounted", this.$route);
+    const fontUrls = [
+      "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic",
+      "https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css",
+    ];
+    for (const url of fontUrls) {
+      const linkNode = document.createElement("link");
+      linkNode.type = "text/css";
+      linkNode.rel = "stylesheet";
+      linkNode.href = url;
+      document.head.appendChild(linkNode);
+    }
   },
 
   data: () => ({}),
@@ -101,7 +112,9 @@ export default {
 </template>
 
 <style lang="less">
-@import "~muse-ui/lib/styles/base.less";
-@import "~muse-ui/lib/styles/theme.less";
-@import "~material-design-icons-iconfont/dist/material-design-icons.css";
+/*@import "~muse-ui/lib/styles/base.less";*/
+/*@import "~muse-ui/lib/styles/theme.less";*/
+/*@import "~material-design-icons-iconfont/dist/material-design-icons.css";*/
+@import "~muse-ui/dist/muse-ui.css";
+@import "~material-design-icons/iconfont/material-icons.css";
 </style>

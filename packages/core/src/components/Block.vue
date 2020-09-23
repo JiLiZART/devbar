@@ -13,7 +13,7 @@
       </template>
     </div>
     <template v-if="infoBlocks.length">
-      <mu-paper class="block__info" :z-depth="1">
+      <v-card class="block__info" :elevation="1">
         <template v-for="(rows, rowsIdx) in infoBlocks">
           <div class="block__info-row" :key="rowsIdx">
             <template v-for="row in rows">
@@ -27,7 +27,7 @@
             </template>
           </div>
         </template>
-      </mu-paper>
+      </v-card>
     </template>
   </div>
 </template>

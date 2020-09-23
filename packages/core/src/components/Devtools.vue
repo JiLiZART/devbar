@@ -24,7 +24,7 @@ export default {
 </script>
 
 <template>
-  <mu-paper class="devtools" :class="className" :z-depth="1">
+  <v-card class="devtools" :class="className" :elevation="1">
     <div class="devtools__content">
       <div class="devtools__tabbar">
         <slot name="bar" />
@@ -33,7 +33,7 @@ export default {
         <slot name="content" />
       </div>
     </div>
-  </mu-paper>
+  </v-card>
 </template>
 
 <style lang="css" scoped>

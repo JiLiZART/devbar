@@ -12,9 +12,14 @@ import {
 import Devtools from "./components/Devtools.vue";
 import TabBar from "./containers/TabBar.vue";
 import TabContent from "./containers/TabContent.vue";
+import { createApp } from "./bootstrap";
+
+const { router, store } = createApp(window["__DEVBAR__"]);
 
 export default {
   name: "App",
+  router,
+  store,
   components: {
     Devtools,
     TabBar,
@@ -24,8 +29,8 @@ export default {
   mounted() {
     console.log("mounted", this.$route);
     const fontUrls = [
-      "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic",
-      "https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css",
+      "https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900",
+      "https://fonts.googleapis.com/css?family=Material+Icons",
     ];
     for (const url of fontUrls) {
       const linkNode = document.createElement("link");
@@ -88,22 +93,20 @@ export default {
     :barActive="barActive"
   >
     <template v-slot:bar>
-      <mu-slide-bottom-transition>
-        <TabBar
-          :logo="logo"
-          :size="size"
-          :tabs="tabs"
-          :viewState="viewState"
-          :barActive="barActive"
-          :closeVisible="viewStateActive"
-          :fullExitVisible="viewStateFull"
-          @tabClick="onTabClick"
-          @closeClick="onCloseClick"
-          @fullClick="onFullClick"
-          @fullExitClick="onFullExitClick"
-          @togglerClick="onTogglerClick"
-        />
-      </mu-slide-bottom-transition>
+      <TabBar
+        :logo="logo"
+        :size="size"
+        :tabs="tabs"
+        :viewState="viewState"
+        :barActive="barActive"
+        :closeVisible="viewStateActive"
+        :fullExitVisible="viewStateFull"
+        @tabClick="onTabClick"
+        @closeClick="onCloseClick"
+        @fullClick="onFullClick"
+        @fullExitClick="onFullExitClick"
+        @togglerClick="onTogglerClick"
+      />
     </template>
     <template v-slot:content>
       <TabContent :title="pageTitle" v-if="!!viewState" />
@@ -111,10 +114,11 @@ export default {
   </Devtools>
 </template>
 
-<style lang="less">
+<style lang="css">
 /*@import "~muse-ui/lib/styles/base.less";*/
 /*@import "~muse-ui/lib/styles/theme.less";*/
 /*@import "~material-design-icons-iconfont/dist/material-design-icons.css";*/
-@import "~muse-ui/dist/muse-ui.css";
-@import "~material-design-icons/iconfont/material-icons.css";
+/*@import "~muse-ui/dist/muse-ui.css";*/
+@import "~vuetify/dist/vuetify.min.css";
+@import "~material-design-icons-iconfont/dist/material-design-icons.css";
 </style>

@@ -1,10 +1,5 @@
 <template>
-  <mu-icon
-    class="icon"
-    :class="classObject"
-    :size="size"
-    :value="name"
-  ></mu-icon>
+  <v-icon class="icon" :class="classObject" :size="size">{{ name }}</v-icon>
 </template>
 
 <script>

@@ -13,6 +13,7 @@ import Devtools from "./components/Devtools.vue";
 import TabBar from "./containers/TabBar.vue";
 import TabContent from "./containers/TabContent.vue";
 import { createApp } from "./bootstrap";
+import { extractState } from "./store";
 
 const { router, store } = createApp(window["__DEVBAR__"]);
 
@@ -25,9 +26,24 @@ export default {
     TabBar,
     TabContent,
   },
+  props: {
+    url: String,
+  },
+
+  created(...args) {
+    console.log("beforeCreate", this.url, args);
+    if (this.url) {
+      fetch(this.url)
+        .then((res) => res.json())
+        .then((data) => {
+          store.replaceState(extractState(data));
+          this.loaded = true;
+        });
+    }
+  },
 
   mounted() {
-    console.log("mounted", this.$route);
+    console.log("[devbar] mounted", this);
     const fontUrls = [
       "https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900",
       "https://fonts.googleapis.com/css?family=Material+Icons",
@@ -41,7 +57,11 @@ export default {
     }
   },
 
-  data: () => ({}),
+  data() {
+    return {
+      loaded: false,
+    };
+  },
 
   methods: {
     onTabClick(tab) {
@@ -86,6 +106,7 @@ export default {
 
 <template>
   <Devtools
+    v-if="loaded"
     :size="size"
     :sticky="sticky"
     :placement="placement"

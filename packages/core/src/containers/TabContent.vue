@@ -1,10 +1,3 @@
-<template>
-  <div class="tab-content">
-    <router-view></router-view>
-  </div>
-  <!-- /.content -->
-</template>
-
 <script>
 export default {
   name: "Page",
@@ -19,6 +12,12 @@ export default {
   data: () => ({}),
 };
 </script>
+
+<template>
+  <div class="tab-content">
+    <router-view></router-view>
+  </div>
+</template>
 
 <style scoped>
 .tab-content {

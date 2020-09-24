@@ -52,6 +52,10 @@ export default {
         this.$router.replace({ name: tab.route });
       }
 
+      if (tab.url) {
+        // @TODO: process url in iframe
+      }
+
       this.$emit("tabClick", tab);
     },
 

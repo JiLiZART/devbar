@@ -37,6 +37,8 @@ import Icon from "./Icon";
 import Text from "./Text";
 import Label from "./Label";
 
+const isDef = (val) => typeof val !== "undefined";
+
 export default {
   name: "DtBlock",
   props: {
@@ -57,7 +59,7 @@ export default {
       return {
         is: Label.name,
         type: item.type,
-        html: item.label,
+        html: String(item.label),
       };
     },
     toIcon(item) {
@@ -69,15 +71,22 @@ export default {
     toText(item) {
       return {
         is: Text.name,
-        html: item.text,
+        html: String(item.text),
       };
     },
     toComponent(item) {
-      return {
-        [!!item.text]: this.toText,
-        [!!item.label]: this.toLabel,
-        [!!item.icon]: this.toIcon,
-      }[!!1](item);
+      const type = {
+        [!!isDef(item.text)]: this.toText,
+        [!!isDef(item.label)]: this.toLabel,
+        [!!isDef(item.icon)]: this.toIcon,
+      }[true];
+
+      if (type) {
+        return type(item);
+      } else {
+        console.warning("[devbar] unknown type of content item", item);
+        return null;
+      }
     },
   },
   computed: {
@@ -93,14 +102,14 @@ export default {
 
     infoBlocks() {
       const blocks = this.info.map((rows) =>
-        rows.map((row) => this.toComponent(row))
+        rows.map((row) => this.toComponent(row)).filter(Boolean)
       );
 
       return blocks;
     },
 
     contentBlocks() {
-      return this.content.map((item) => this.toComponent(item));
+      return this.content.map((item) => this.toComponent(item)).filter(Boolean);
     },
   },
 };
@@ -142,7 +151,7 @@ export default {
 .block__body {
   height: 100%;
   padding: 0 6px;
-  min-height: 32px;
+  min-height: 33px;
   font: 10px Verdana, Arial, sans-serif;
   box-sizing: border-box;
   white-space: nowrap;
@@ -218,6 +227,24 @@ export default {
     rgb(247, 247, 247) 0%,
     rgb(224, 224, 224) 100%
   ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.block.titled:hover {
+  background: rgb(247, 247, 247); /* Old browsers */
+  background: linear-gradient(
+    to bottom,
+    rgb(247, 247, 247) 0%,
+    rgb(224, 224, 224) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.block.titled:active {
+  background: rgb(224, 224, 224); /* Old browsers */
+  background: linear-gradient(
+    to bottom,
+    rgb(224, 224, 224) 0%,
+    rgb(247, 247, 247) 100%
+  );
 }
 
 .block.titled .block__body {

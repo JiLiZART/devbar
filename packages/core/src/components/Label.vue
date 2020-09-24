@@ -29,6 +29,7 @@ export default {
   font-weight: normal;
   white-space: nowrap;
   vertical-align: baseline;
+  background-color: hsla(0, 0%, 80%, 0.3);
   border-radius: 3px;
 }
 

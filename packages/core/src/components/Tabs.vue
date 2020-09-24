@@ -10,9 +10,8 @@
             :active="isTabActive(tab)"
             :withRoute="!!tab.route"
             ref="tabRef"
-          >
-            <component v-bind="tab" v-bind:is="tab.is"></component>
-          </DtBlock>
+            ><component v-bind="tab" v-bind:is="tab.is"></component
+          ></DtBlock>
         </template>
         <template v-else>
           <DtBlock
@@ -30,7 +29,6 @@
     <div class="tabs__right">
       <slot name="right"></slot>
     </div>
-    <!-- /.tabs__right -->
   </div>
 </template>
 

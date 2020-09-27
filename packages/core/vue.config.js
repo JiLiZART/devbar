@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 
 function enableShadowCss(config) {
   const configs = [
@@ -48,10 +47,8 @@ module.exports = {
   css: {
     extract: false,
   },
-
+  transpileDependencies: ["vuetify"],
   chainWebpack: (config) => {
     enableShadowCss(config);
-
-    // config.plugin("vuetify").use(VuetifyLoaderPlugin);
   },
 };

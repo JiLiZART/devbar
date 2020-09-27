@@ -16,7 +16,7 @@ import {
   ROUTE_NAME_REQUEST,
   ROUTE_NAME_SETTINGS,
   ROUTE_NAME_SHELL,
-} from "./constants/routeNamesConstants";
+} from "./constants/routeConstants";
 
 Vue.use(Router);
 

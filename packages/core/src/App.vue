@@ -1,5 +1,5 @@
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import {
   VIEW_STATE_ACTIVE,
   VIEW_STATE_FULL,
@@ -7,13 +7,20 @@ import {
 } from "./constants/viewStateConstants";
 import {
   MUTATION_BAR_ACTIVE,
+  MUTATION_IFRAME_URL,
   MUTATION_VIEW_STATE,
 } from "./constants/mutationNamesConstants";
+import { ROUTE_NAME_SETTINGS } from "./constants/routeConstants";
 import Devtools from "./components/Devtools.vue";
-import TabBar from "./containers/TabBar.vue";
-import TabContent from "./containers/TabContent.vue";
+import TabBar from "./components/TabBar.vue";
+import TabContent from "./components/TabContent.vue";
+import Tabs from "./components/Tabs";
+import SettingsBar from "./components/SettingsBar";
+import TabBarToggler from "./components/TabBarToggler";
 import { createApp } from "./bootstrap";
 import { extractState } from "./store";
+import { appendCssUrl } from "./helpers/domHelper";
+import { toVueComponent } from "./helpers/componentHelper";
 
 const { router, store } = createApp(window["__DEVBAR__"]);
 
@@ -25,13 +32,16 @@ export default {
     Devtools,
     TabBar,
     TabContent,
+    Tabs,
+    SettingsBar,
+    TabBarToggler,
   },
   props: {
     url: String,
+    state: Object,
   },
 
-  created(...args) {
-    console.log("beforeCreate", this.url, args);
+  created() {
     if (this.url) {
       fetch(this.url)
         .then((res) => res.json())
@@ -39,6 +49,9 @@ export default {
           store.replaceState(extractState(data));
           this.loaded = true;
         });
+    } else if (this.state) {
+      store.replaceState(extractState(this.state));
+      this.loaded = true;
     }
   },
 
@@ -49,11 +62,7 @@ export default {
       "https://fonts.googleapis.com/css?family=Material+Icons",
     ];
     for (const url of fontUrls) {
-      const linkNode = document.createElement("link");
-      linkNode.type = "text/css";
-      linkNode.rel = "stylesheet";
-      linkNode.href = url;
-      document.head.appendChild(linkNode);
+      appendCssUrl(url);
     }
   },
 
@@ -65,12 +74,20 @@ export default {
 
   methods: {
     onTabClick(tab) {
-      console.log("tab click", tab);
-      if (tab.route && !this.viewStateFull) {
+      if ((tab.route || tab.iframe) && !this.viewStateFull) {
         this.$store.commit(MUTATION_VIEW_STATE, VIEW_STATE_ACTIVE);
+      }
+
+      if (tab.route) {
+        this.$router.replace({ name: tab.route });
+      }
+
+      if (tab.iframe) {
+        this.$store.commit(MUTATION_IFRAME_URL, tab.iframe);
       }
     },
     onCloseClick() {
+      this.$store.commit(MUTATION_IFRAME_URL, null);
       this.$store.commit(MUTATION_VIEW_STATE, VIEW_STATE_NONE);
     },
     onFullClick() {
@@ -82,13 +99,14 @@ export default {
     onTogglerClick() {
       this.$store.commit(MUTATION_BAR_ACTIVE, !this.barActive);
     },
+    onSettingsClick() {
+      this.$store.commit(MUTATION_VIEW_STATE, VIEW_STATE_FULL);
+      this.$router.replace({ name: ROUTE_NAME_SETTINGS });
+    },
   },
 
   computed: {
-    pageTitle() {
-      return (this.$route.meta && this.$route.meta.title) || "";
-    },
-
+    ...mapState(["iframeUrl", "route"]),
     ...mapGetters([
       "barActive",
       "tabs",
@@ -100,6 +118,25 @@ export default {
       "size",
       "sticky",
     ]),
+
+    pageTitle() {
+      return (this.$route.meta && this.$route.meta.title) || "";
+    },
+
+    tabsBlocks() {
+      return this.tabs.map((block) => {
+        return block.template ? toVueComponent(block) : block;
+      });
+    },
+
+    iframeSafeUrl() {
+      if (this.iframeUrl) {
+        return this.iframeUrl;
+      }
+
+      return "about:blank";
+    },
+
   },
 };
 </script>
@@ -114,23 +151,36 @@ export default {
     :barActive="barActive"
   >
     <template v-slot:bar>
-      <TabBar
-        :logo="logo"
-        :size="size"
-        :tabs="tabs"
-        :viewState="viewState"
-        :barActive="barActive"
-        :closeVisible="viewStateActive"
-        :fullExitVisible="viewStateFull"
-        @tabClick="onTabClick"
-        @closeClick="onCloseClick"
-        @fullClick="onFullClick"
-        @fullExitClick="onFullExitClick"
-        @togglerClick="onTogglerClick"
-      />
+      <TabBar>
+        <TabBarToggler :logo="logo" @togglerClick="onTogglerClick" />
+        <Tabs
+          :tabs="tabsBlocks"
+          :size="size"
+          :viewState="viewState"
+          @tabClick="onTabClick"
+        >
+          <template slot="right">
+            <SettingsBar
+              :closeVisible="viewStateActive"
+              :fullExitVisible="viewStateFull"
+              @fullClick="onFullClick"
+              @fullExitClick="onFullExitClick"
+              @closeClick="onCloseClick"
+            />
+          </template>
+        </Tabs>
+      </TabBar>
     </template>
     <template v-slot:content>
-      <TabContent :title="pageTitle" v-if="!!viewState" />
+      <TabContent :route="route" :iframeUrl="iframeUrl" v-if="!!viewState">
+        <router-view v-if="route"></router-view>
+        <iframe
+          v-if="iframeUrl"
+          :src="iframeSafeUrl"
+          :title="title"
+          frameborder="0"
+        ></iframe>
+      </TabContent>
     </template>
   </Devtools>
 </template>

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import createPersistedState from "vuex-persistedstate";
+// import createPersistedState from "vuex-persistedstate";
 
 import actions from "./actions";
 import mutations from "./mutations";
@@ -10,15 +10,15 @@ import { PLACEMENT_BOTTOM_RIGHT } from "../constants/placementConstants";
 
 Vue.use(Vuex);
 
-const settingsStoragePlugin = (store) => {
-  console.log("mut.before", store);
-  // вызывается после инициализации хранилища
-  store.subscribe((mutation, state) => {
-    console.log("mut", mutation, state);
-    // вызывается после каждой мутации
-    // мутация передаётся в формате `{ type, payload }`.
-  });
-};
+// const settingsStoragePlugin = (store) => {
+//   console.log("mut.before", store);
+//   // вызывается после инициализации хранилища
+//   store.subscribe((mutation, state) => {
+//     console.log("mut", mutation, state);
+//     // вызывается после каждой мутации
+//     // мутация передаётся в формате `{ type, payload }`.
+//   });
+// };
 
 const settings = {
   barActive: false,
@@ -37,6 +37,7 @@ export function extractState(state) {
     tabs: state.tabs || [],
     settings: state.settings || settings,
     route: null,
+    iframeUrl: null,
   };
 }
 
@@ -58,6 +59,7 @@ export function createStore(state) {
       tabs: [],
       settings,
       route: null,
+      iframeUrl: null,
       ...state,
     },
     actions,

@@ -15,9 +15,6 @@ export default {
   placement: (state) =>
     state.placement ? state.settings.placement : PLACEMENT_BOTTOM_RIGHT,
   size: (state) => (state.size ? state.size : SIZE_M),
-  sticky: (state) => true,
+  sticky: () => true,
+  iframeUrl: (state) => state.iframeUrl,
 };
-
-// barActive: false,
-//         placement: PLACEMENT_BOTTOM_RIGHT,
-//         viewState: VIEW_STATE_ACTIVE

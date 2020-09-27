@@ -96,12 +96,6 @@ export default {
   max-height: 100%;
 }
 
-.tab-bar {
-  text-align: left;
-  transition: width 0.3s ease;
-  z-index: 1000000;
-}
-
 .devtools__tab-content {
   flex: 1 1 100%;
   position: relative;
@@ -133,6 +127,7 @@ export default {
 .devtools_sticky {
   position: fixed;
   margin: 0;
+  z-index: 99999999999999;
 }
 
 .devtools_sticky_bottom-right {

@@ -49,6 +49,7 @@ export default {
     info: { type: Array, default: () => [] },
     stretch: Boolean,
     withRoute: Boolean,
+    withIframe: Boolean,
   },
 
   methods: {
@@ -96,16 +97,14 @@ export default {
         ["block_active"]: this.active,
         ["block_stretch"]: Boolean(this.stretch),
         [`block_size_${this.size}`]: Boolean(this.size),
-        ["block_link"]: Boolean(this.withRoute),
+        ["block_link"]: Boolean(this.withRoute) || Boolean(this.withIframe),
       };
     },
 
     infoBlocks() {
-      const blocks = this.info.map((rows) =>
+      return this.info.map((rows) =>
         rows.map((row) => this.toComponent(row)).filter(Boolean)
       );
-
-      return blocks;
     },
 
     contentBlocks() {

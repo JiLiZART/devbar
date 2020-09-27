@@ -9,6 +9,7 @@
             :size="size"
             :active="isTabActive(tab)"
             :withRoute="!!tab.route"
+            :withIframe="!!tab.iframe"
             ref="tabRef"
             ><component v-bind="tab" v-bind:is="tab.is"></component
           ></DtBlock>
@@ -21,6 +22,7 @@
             :size="size"
             :active="isTabActive(tab)"
             :withRoute="!!tab.route"
+            :withIframe="!!tab.iframe"
             ref="tabRef"
           />
         </template>

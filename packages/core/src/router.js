@@ -1,13 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-
-import HomeView from "@/views/HomeView";
-import ShellView from "@/views/ShellView";
-import FrameView from "@/views/FrameView";
-import LogsView from "@/views/LogsView";
-import ConfigView from "@/views/ConfigView";
-import RequestView from "@/views/RequestView";
-import SettingsView from "@/views/SettingsView";
 import {
   ROUTE_NAME_CONFIG,
   ROUTE_NAME_FRAME,
@@ -17,10 +9,17 @@ import {
   ROUTE_NAME_SETTINGS,
   ROUTE_NAME_SHELL,
 } from "./constants/routeConstants";
+import HomeView from "./views/HomeView";
+import ShellView from "./views/ShellView";
+import FrameView from "./views/FrameView";
+import LogsView from "./views/LogsView";
+import ConfigView from "./views/ConfigView";
+import RequestView from "./views/RequestView";
+import SettingsView from "./views/SettingsView";
 
-Vue.use(Router);
+export function createRouter(routes = []) {
+  Vue.use(Router);
 
-export function createRouter() {
   return new Router({
     mode: "abstract",
     routes: [
@@ -55,13 +54,14 @@ export function createRouter() {
         component: RequestView,
       },
       {
-        path: "/Settings",
+        path: "/settings",
         name: ROUTE_NAME_SETTINGS,
         component: SettingsView,
         meta: {
           title: "Settings",
         },
       },
+      ...routes,
     ],
   });
 }

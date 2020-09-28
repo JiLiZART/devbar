@@ -6,6 +6,7 @@ export default {
   props: {
     tabs: { type: Array, default: () => [] },
     size: String,
+    iframeUrl: String,
     viewState: String,
   },
   components: {
@@ -18,7 +19,13 @@ export default {
     },
 
     isTabActive(tab) {
-      return this.$route.name === tab.route && !!this.viewState;
+      if (tab.route) {
+        return this.$route.name === tab.route && !!this.viewState;
+      }
+
+      if (tab.iframe) {
+        return this.iframeUrl === tab.iframe && !!this.viewState;
+      }
     },
   },
 };

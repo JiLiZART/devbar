@@ -158,13 +158,16 @@ export default {
           @togglerClick="onTogglerClick"
         />
         <Tabs
-          :tabs="tabsBlocks"
           :size="size"
+          :route="route"
+          :tabs="tabsBlocks"
+          :iframeUrl="iframeUrl"
           :viewState="viewState"
           @tabClick="onTabClick"
         >
           <template v-slot:right>
             <SettingsBar
+              :size="size"
               :closeVisible="viewStateActive"
               :fullExitVisible="viewStateFull"
               @settingsClick="onSettingsClick"

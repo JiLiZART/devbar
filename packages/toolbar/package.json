@@ -1,5 +1,5 @@
 {
-  "name": "devbar",
+  "name": "@devbar/toolbar",
   "version": "0.1.0",
   "private": true,
   "scripts": {

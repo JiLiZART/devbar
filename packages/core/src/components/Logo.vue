@@ -46,7 +46,7 @@ export default {
 }
 
 .logo.size_md {
-  height: 34px;
+  height: 32px;
 }
 
 img {

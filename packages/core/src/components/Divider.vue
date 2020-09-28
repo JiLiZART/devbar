@@ -1,7 +1,3 @@
-<template>
-  <span class="divider"></span>
-</template>
-
 <script>
 export default {
   name: "Divider",
@@ -9,6 +5,10 @@ export default {
   components: {},
 };
 </script>
+
+<template>
+  <span class="divider"></span>
+</template>
 
 <style scoped>
 .divider {

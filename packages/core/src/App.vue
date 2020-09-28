@@ -11,10 +11,10 @@ import {
   MUTATION_VIEW_STATE,
 } from "./constants/mutationNamesConstants";
 import { ROUTE_NAME_SETTINGS } from "./constants/routeConstants";
-import Devtools from "./components/Devtools.vue";
+import Tabs from "./components/Tabs";
+import DevBar from "./components/DevBar.vue";
 import TabBar from "./components/TabBar.vue";
 import TabContent from "./components/TabContent.vue";
-import Tabs from "./components/Tabs";
 import SettingsBar from "./components/SettingsBar";
 import TabBarToggler from "./components/TabBarToggler";
 import { createApp } from "./bootstrap";
@@ -29,12 +29,12 @@ export default {
   router,
   store,
   components: {
-    Devtools,
-    TabBar,
-    TabContent,
+    DevBar,
     Tabs,
-    SettingsBar,
+    TabBar,
     TabBarToggler,
+    TabContent,
+    SettingsBar,
   },
   props: {
     url: String,
@@ -136,13 +136,12 @@ export default {
 
       return "about:blank";
     },
-
   },
 };
 </script>
 
 <template>
-  <Devtools
+  <DevBar
     v-if="loaded"
     :size="size"
     :sticky="sticky"
@@ -152,17 +151,23 @@ export default {
   >
     <template v-slot:bar>
       <TabBar>
-        <TabBarToggler :logo="logo" @togglerClick="onTogglerClick" />
+        <TabBarToggler
+          :logo="logo"
+          :size="size"
+          :active="barActive"
+          @togglerClick="onTogglerClick"
+        />
         <Tabs
           :tabs="tabsBlocks"
           :size="size"
           :viewState="viewState"
           @tabClick="onTabClick"
         >
-          <template slot="right">
+          <template v-slot:right>
             <SettingsBar
               :closeVisible="viewStateActive"
               :fullExitVisible="viewStateFull"
+              @settingsClick="onSettingsClick"
               @fullClick="onFullClick"
               @fullExitClick="onFullExitClick"
               @closeClick="onCloseClick"
@@ -174,22 +179,13 @@ export default {
     <template v-slot:content>
       <TabContent :route="route" :iframeUrl="iframeUrl" v-if="!!viewState">
         <router-view v-if="route"></router-view>
-        <iframe
-          v-if="iframeUrl"
-          :src="iframeSafeUrl"
-          :title="title"
-          frameborder="0"
-        ></iframe>
+        <iframe v-if="iframeUrl" :src="iframeSafeUrl" :title="title"></iframe>
       </TabContent>
     </template>
-  </Devtools>
+  </DevBar>
 </template>
 
 <style lang="css">
-/*@import "~muse-ui/lib/styles/base.less";*/
-/*@import "~muse-ui/lib/styles/theme.less";*/
-/*@import "~material-design-icons-iconfont/dist/material-design-icons.css";*/
-/*@import "~muse-ui/dist/muse-ui.css";*/
 @import "~vuetify/dist/vuetify.min.css";
 @import "~material-design-icons-iconfont/dist/material-design-icons.css";
 </style>

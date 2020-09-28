@@ -1,11 +1,3 @@
-<template>
-  <div class="panel sticky sticky_right">
-    <div class="titlebar">
-      <Block size="s"> Time <dt-label type="success">300 ms</dt-label> </Block>
-    </div>
-  </div>
-</template>
-
 <script>
 import Block from "./Block";
 
@@ -52,3 +44,11 @@ export default {
   bottom: 0;
 }
 </style>
+
+<template>
+  <div class="panel sticky sticky_right">
+    <div class="titlebar">
+      <Block size="s"> Time <dt-label type="success">300 ms</dt-label> </Block>
+    </div>
+  </div>
+</template>

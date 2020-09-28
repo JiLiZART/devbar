@@ -1,37 +1,3 @@
-<template>
-  <div class="block" :class="classNames">
-    <div class="block__body" @click="onClick">
-      <slot></slot>
-      <template v-for="params in contentBlocks">
-        <component
-          v-if="params"
-          v-bind="params"
-          v-bind:key="params.id"
-          v-bind:is="params.is"
-          >{{ params.html }}
-        </component>
-      </template>
-    </div>
-    <template v-if="infoBlocks.length">
-      <v-card class="block__info" :elevation="1">
-        <template v-for="(rows, rowsIdx) in infoBlocks">
-          <div class="block__info-row" :key="rowsIdx">
-            <template v-for="row in rows">
-              <component
-                v-if="row"
-                v-bind="row"
-                v-bind:key="row.id"
-                v-bind:is="row.is"
-                >{{ row.html }}
-              </component>
-            </template>
-          </div>
-        </template>
-      </v-card>
-    </template>
-  </div>
-</template>
-
 <script>
 import Icon from "./Icon";
 import Text from "./Text";
@@ -48,8 +14,7 @@ export default {
     content: { type: Array, default: () => [] },
     info: { type: Array, default: () => [] },
     stretch: Boolean,
-    withRoute: Boolean,
-    withIframe: Boolean,
+    clickable: Boolean,
   },
 
   methods: {
@@ -94,10 +59,10 @@ export default {
     classNames() {
       return {
         titled: this.titled,
-        ["block_active"]: this.active,
-        ["block_stretch"]: Boolean(this.stretch),
-        [`block_size_${this.size}`]: Boolean(this.size),
-        ["block_link"]: Boolean(this.withRoute) || Boolean(this.withIframe),
+        active: this.active,
+        stretch: Boolean(this.stretch),
+        link: Boolean(this.clickable),
+        [`size_${this.size}`]: Boolean(this.size),
       };
     },
 
@@ -114,64 +79,72 @@ export default {
 };
 </script>
 
+<template>
+  <div class="block" :class="classNames">
+    <div class="body" @click="onClick">
+      <slot></slot>
+      <template v-for="params in contentBlocks">
+        <component
+          v-if="params"
+          v-bind="params"
+          v-bind:key="params.id"
+          v-bind:is="params.is"
+          >{{ params.html }}
+        </component>
+      </template>
+    </div>
+    <template v-if="infoBlocks.length">
+      <v-card class="block-info" :elevation="1">
+        <template v-for="(rows, rowsIdx) in infoBlocks">
+          <div class="block-info-row" :key="rowsIdx">
+            <template v-for="row in rows">
+              <component
+                v-if="row"
+                v-bind="row"
+                v-bind:key="row.id"
+                v-bind:is="row.is"
+                >{{ row.html }}
+              </component>
+            </template>
+          </div>
+        </template>
+      </v-card>
+    </template>
+  </div>
+</template>
+
 <style scoped>
 .block {
   margin: 0;
   height: 100%;
+  display: inline-flex;
 }
 
-.block:hover {
-  position: relative;
+.body {
+  min-height: 36px;
 }
 
-.block + .block {
-  border-left: 1px solid rgba(0, 0, 0, 0.11);
-}
-
-.block.block_stretch {
-  /*padding: 2px 0;*/
-}
-
-.block.block_active {
-  background: rgb(247, 247, 247); /* Old browsers */
-  /*background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
-}
-
-.block.block_link {
-  /*background: rgb(247, 247, 247); !* Old browsers *!*/
-}
-
-.block.block_link:hover {
-  cursor: pointer;
-  background: hsla(360, 100%, 100%, 1); /* Old browsers */
-  /*background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%);*/
-}
-
-.block__body {
+.body {
   height: 100%;
   padding: 0 6px;
-  min-height: 33px;
-  font: 10px Verdana, Arial, sans-serif;
+  font-size: 12px;
   box-sizing: border-box;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
 }
 
-.block__info {
+.block-info {
   bottom: 42px;
-  /*display: block;*/
   visibility: hidden;
   padding: 10px 0;
   position: absolute;
-  /*border: 1px solid rgba(0, 0, 0, 0.11);*/
-  /*background: rgb(247, 247, 247);*/
   opacity: 0;
   transition: opacity 0.1s ease-out;
   border-radius: 6px;
 }
 
-.block:hover .block__info {
+.block:hover .block-info {
   padding: 10px;
   max-width: 480px;
   max-height: 480px;
@@ -182,7 +155,7 @@ export default {
   visibility: visible;
 }
 
-.block__info-row {
+.block-info-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -199,54 +172,40 @@ export default {
   vertical-align: middle;
 }
 
-.block :global .v-icon {
-  margin: 0;
+.block:hover {
+  position: relative;
 }
 
-/*.block.size_xl {*/
-/*height: 48px;*/
-/*}*/
+.block + .block {
+  border-left: 1px solid rgba(0, 0, 0, 0.11);
+}
 
-/*.block.size_l {*/
-/*height: 40px;*/
-/*}*/
+.block.size_md {
+  min-width: 36px;
+  min-height: 36px;
+  max-height: 36px;
+}
 
-/*.block.size_m {*/
-/*height: 32px;*/
-/*}*/
-
-/*.block.size_s {*/
-/*height: 24px;*/
-/*}*/
-
-.block.titled {
+.block.active {
   background: rgb(247, 247, 247); /* Old browsers */
-  background: linear-gradient(
-    to bottom,
-    rgb(247, 247, 247) 0%,
-    rgb(224, 224, 224) 100%
-  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  /*background: linear-gradient(to bottom, rgb(247, 247, 247) 0%, rgb(224, 224, 224) 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
 }
 
-.block.titled:hover {
-  background: rgb(247, 247, 247); /* Old browsers */
-  background: linear-gradient(
-    to bottom,
-    rgb(247, 247, 247) 0%,
-    rgb(224, 224, 224) 100%
-  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+.block.link {
+  /*background: rgb(247, 247, 247); !* Old browsers *!*/
 }
 
-.block.titled:active {
-  background: rgb(224, 224, 224); /* Old browsers */
+.block.link:hover {
+  cursor: pointer;
+  background: hsla(0, 0%, 88%, 1); /* Old browsers */
   background: linear-gradient(
     to bottom,
-    rgb(224, 224, 224) 0%,
-    rgb(247, 247, 247) 100%
+    hsl(0, 0%, 97%) 0%,
+    hsl(0, 0%, 88%) 100%
   );
 }
 
-.block.titled .block__body {
+.block.titled .body {
   padding: 0;
 }
 </style>

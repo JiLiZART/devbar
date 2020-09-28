@@ -1,39 +1,3 @@
-<template>
-  <div class="tabs">
-    <div class="tabs__left">
-      <template v-for="tab in tabs">
-        <template v-if="tab.is">
-          <DtBlock
-            @click="onTabClick(tab, $event)"
-            v-bind:key="tab.is"
-            :size="size"
-            :active="isTabActive(tab)"
-            :withRoute="!!tab.route"
-            :withIframe="!!tab.iframe"
-            ref="tabRef"
-            ><component v-bind="tab" v-bind:is="tab.is"></component
-          ></DtBlock>
-        </template>
-        <template v-else>
-          <DtBlock
-            @click="onTabClick(tab, $event)"
-            v-bind="tab"
-            v-bind:key="tab.title"
-            :size="size"
-            :active="isTabActive(tab)"
-            :withRoute="!!tab.route"
-            :withIframe="!!tab.iframe"
-            ref="tabRef"
-          />
-        </template>
-      </template>
-    </div>
-    <div class="tabs__right">
-      <slot name="right"></slot>
-    </div>
-  </div>
-</template>
-
 <script>
 import DtBlock from "./Block";
 
@@ -41,7 +5,7 @@ export default {
   name: "Tabs",
   props: {
     tabs: { type: Array, default: () => [] },
-    size: { type: String, default: "m" },
+    size: String,
     viewState: String,
   },
   components: {
@@ -60,6 +24,40 @@ export default {
 };
 </script>
 
+<template>
+  <div class="tabs">
+    <div class="aside-start">
+      <template v-for="tab in tabs">
+        <template v-if="tab.is">
+          <DtBlock
+            @click="onTabClick(tab, $event)"
+            v-bind:key="tab.is"
+            :size="size"
+            :active="isTabActive(tab)"
+            :clickable="!!tab.iframe || !!tab.route"
+            ref="tabRef"
+          ><component v-bind="tab" v-bind:is="tab.is"></component
+          ></DtBlock>
+        </template>
+        <template v-else>
+          <DtBlock
+            @click="onTabClick(tab, $event)"
+            v-bind="tab"
+            v-bind:key="tab.title"
+            :size="size"
+            :active="isTabActive(tab)"
+            :clickable="!!tab.iframe || !!tab.route"
+            ref="tabRef"
+          />
+        </template>
+      </template>
+    </div>
+    <div class="aside-end">
+      <slot name="right"></slot>
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .tabs {
   flex: 1 1 auto;
@@ -68,8 +66,8 @@ export default {
   justify-content: space-between;
 }
 
-.tabs__right,
-.tabs__left {
+.aside-start,
+.aside-end {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -78,10 +76,9 @@ export default {
   box-sizing: border-box;
 }
 
-.tabs__tab {
+.tab {
   display: flex;
   align-items: center;
-  cursor: pointer;
   cursor: pointer;
   user-select: none;
 }

@@ -36,7 +36,7 @@ export function extractState(state) {
     title: state.title,
     tabs: state.tabs || [],
     settings: state.settings || settings,
-    route: null,
+    // route: null,
     iframeUrl: null,
   };
 }
@@ -58,7 +58,7 @@ export function createStore(state) {
       title: "Devbar.js",
       tabs: [],
       settings,
-      route: null,
+      // route: null,
       iframeUrl: null,
       ...state,
     },

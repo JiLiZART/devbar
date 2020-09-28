@@ -1,1 +1,1 @@
-export const SIZE_M = "m";
+export const SIZE_MD = "md";

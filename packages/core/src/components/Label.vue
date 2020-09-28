@@ -1,9 +1,3 @@
-<template>
-  <span class="label" :class="classObject">
-    <slot></slot>
-  </span>
-</template>
-
 <script>
 export default {
   name: "DtLabel",
@@ -20,6 +14,12 @@ export default {
   },
 };
 </script>
+
+<template>
+  <span class="label" :class="classObject">
+    <slot></slot>
+  </span>
+</template>
 
 <style scoped>
 .label {

@@ -1,9 +1,3 @@
-<template>
-  <dt-block>
-    <dt-icon name="more-vert" size="s"></dt-icon>
-  </dt-block>
-</template>
-
 <script>
 export default {
   name: "SettingsButton",
@@ -11,4 +5,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<template>
+  <dt-block>
+    <dt-icon name="more-vert" size="s"></dt-icon>
+  </dt-block>
+</template>

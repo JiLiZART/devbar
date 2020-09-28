@@ -1,7 +1,7 @@
 {
   "name": "@devbar/toolbar",
   "version": "0.1.0",
-  "private": true,
+  "description": "Easy to use toolbar for your framework CMS or site",
   "scripts": {
     "serve": "vue-cli-service serve ./src/main.js",
     "build": "vue-cli-service build --target wc-async --name dev-bar --inline-vue",

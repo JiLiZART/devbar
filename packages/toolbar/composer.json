@@ -1,0 +1,13 @@
+{
+    "name": "devbar/toolbar",
+    "description": "Devbar.js distribution to use in PHP projects",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nikolay Kostyurin",
+            "email": "jilizart@gmail.com"
+        }
+    ],
+    "require": {}
+}

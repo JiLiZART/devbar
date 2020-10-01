@@ -1,6 +1,6 @@
 {
   "name": "@devbar/toolbar",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Easy to use toolbar for your framework CMS or site",
   "scripts": {
     "serve": "vue-cli-service serve ./src/main.js",
@@ -9,6 +9,7 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
+  "browser": "dist/dev-bar.min.js",
   "dependencies": {
     "@vue/web-component-wrapper": "1.2.0",
     "core-js": "^3.6.5",
